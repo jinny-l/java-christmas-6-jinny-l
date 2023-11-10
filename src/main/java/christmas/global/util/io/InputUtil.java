@@ -19,7 +19,7 @@ public class InputUtil {
         }
     }
 
-    private static String readLine() {
+    public static String readLine() {
         String input = Console.readLine().strip();
         validateHasInput(input);
         return input;
