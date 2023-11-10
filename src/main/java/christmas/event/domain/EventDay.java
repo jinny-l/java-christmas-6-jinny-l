@@ -29,4 +29,8 @@ public record EventDay(
                 DayType.from(LocalDate.parse(values[DATE_INDEX]))
         );
     }
+
+    public boolean isSameDay(int dayOfMonth) {
+        return date.getDayOfMonth() == dayOfMonth;
+    }
 }
