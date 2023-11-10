@@ -1,5 +1,9 @@
 package christmas.order.domain;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 public enum Menu {
 
     MUSHROOM_SOUP("양송이수프", 6000, Type.APPETIZER),
@@ -15,14 +19,32 @@ public enum Menu {
     RED_WINE("레드와인", 60000, Type.DRINK),
     CHAMPAGNE("샴페인", 25000, Type.DRINK);
 
+    private static final List<Menu> MENUS;
+
     private final String name;
     private final int price;
     private final Type type;
+
+    static {
+        MENUS = Arrays.stream(Menu.values())
+                .toList();
+    }
 
     Menu(String name, int price, Type type) {
         this.name = name;
         this.price = price;
         this.type = type;
+    }
+
+    public static Menu from(String name) {
+        return MENUS.stream()
+                .filter(menu -> Objects.equals(menu.name, name))
+                .findAny()
+                .orElseThrow();
+    }
+
+    public Type getType() {
+        return type;
     }
 }
 
