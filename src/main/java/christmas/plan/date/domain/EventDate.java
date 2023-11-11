@@ -33,4 +33,12 @@ public record EventDate(
     public boolean isSameDay(int dayOfMonth) {
         return date.getDayOfMonth() == dayOfMonth;
     }
+
+    public boolean isWeekend() {
+        return dayType == DayType.WEEKEND;
+    }
+
+    public boolean isWeekday() {
+        return dayType == DayType.WEEKDAY;
+    }
 }
