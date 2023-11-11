@@ -43,6 +43,10 @@ public enum Menu {
                 .orElseThrow();
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public Type getType() {
         return type;
     }

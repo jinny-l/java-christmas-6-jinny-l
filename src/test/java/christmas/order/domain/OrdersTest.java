@@ -85,4 +85,23 @@ class OrdersTest {
         // then
         assertThat(actual).isEqualTo(expected);
     }
+
+    @DisplayName("총 주문 금액을 정확히 계산한다.")
+    @Test
+    void getTotalValue() {
+        // given
+        List<Order> menus = List.of(
+                new Order(Menu.RED_WINE, 1),
+                new Order(Menu.CHRISTMAS_PASTA, 1)
+        );
+
+        Orders orders = new Orders(menus);
+
+        // when
+        int actual = orders.getTotalValue();
+
+
+        // then
+        assertThat(actual).isEqualTo(Menu.RED_WINE.getPrice() + Menu.CHRISTMAS_PASTA.getPrice());
+    }
 }

@@ -4,12 +4,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public record Orders(
-        List<Order> menus
-) {
+public class Orders {
 
-    public Orders {
+    private final List<Order> menus;
+    private final int totalValue;
+
+    public Orders(List<Order> menus) {
         validateDuplicateMenu(menus);
+        this.menus = menus;
+        totalValue = calculateTotalValue(menus);
     }
 
     private void validateDuplicateMenu(List<Order> menus) {
@@ -19,6 +22,16 @@ public record Orders(
                 .anyMatch(menu -> !uniqueMenus.add(menu))) {
             throw new IllegalArgumentException();
         }
+    }
+
+    public int getTotalValue() {
+        return totalValue;
+    }
+
+    private int calculateTotalValue(List<Order> menus) {
+        return menus.stream()
+                .mapToInt(menu -> menu.menu().getPrice() * menu.amount())
+                .sum();
     }
 
     public boolean isAllDrink() {
