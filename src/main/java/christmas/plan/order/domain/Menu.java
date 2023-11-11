@@ -1,4 +1,4 @@
-package christmas.order.domain;
+package christmas.plan.order.domain;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +41,10 @@ public enum Menu {
                 .filter(menu -> Objects.equals(menu.name, name))
                 .findAny()
                 .orElseThrow();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getPrice() {

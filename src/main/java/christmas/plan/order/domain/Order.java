@@ -1,4 +1,4 @@
-package christmas.order.domain;
+package christmas.plan.order.domain;
 
 public record Order(
         Menu menu,
@@ -17,6 +17,13 @@ public record Order(
         }
     }
 
+    public boolean isMain() {
+        return menu.getType() == Type.MAIN;
+    }
+
+    public boolean isDessert() {
+        return menu.getType() == Type.DESSERT;
+    }
     public boolean isDrink() {
         return menu.getType() == Type.DRINK;
     }

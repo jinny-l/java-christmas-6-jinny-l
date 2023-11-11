@@ -1,4 +1,4 @@
-package christmas.order.domain;
+package christmas.plan.order.domain;
 
 public enum Type {
 

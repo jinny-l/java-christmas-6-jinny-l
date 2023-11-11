@@ -1,7 +1,7 @@
-package christmas.order.service;
+package christmas.plan.order.service;
 
-import christmas.order.domain.Orders;
-import christmas.order.dto.OrdersRequest;
+import christmas.plan.order.domain.Orders;
+import christmas.plan.order.dto.OrdersRequest;
 
 public class OrderService {
 

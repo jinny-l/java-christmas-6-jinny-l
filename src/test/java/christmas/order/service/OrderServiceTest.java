@@ -3,8 +3,9 @@ package christmas.order.service;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import christmas.order.domain.Orders;
-import christmas.order.dto.OrdersRequest;
+import christmas.plan.order.domain.Orders;
+import christmas.plan.order.dto.OrdersRequest;
+import christmas.plan.order.service.OrderService;
 import java.util.Collections;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;

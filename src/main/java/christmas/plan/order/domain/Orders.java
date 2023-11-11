@@ -1,4 +1,4 @@
-package christmas.order.domain;
+package christmas.plan.order.domain;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +24,10 @@ public class Orders {
         }
     }
 
+    public List<Order> getMenus() {
+        return menus;
+    }
+
     public int getTotalValue() {
         return totalValue;
     }
@@ -46,6 +50,20 @@ public class Orders {
 
     public int totalAmount() {
         return menus.stream()
+                .mapToInt(Order::amount)
+                .sum();
+    }
+
+    public int countAmountByDessertMenu() {
+        return menus.stream()
+                .filter(Order::isDessert)
+                .mapToInt(Order::amount)
+                .sum();
+    }
+
+    public int countAmountByMainMenu() {
+        return menus.stream()
+                .filter(Order::isMain)
                 .mapToInt(Order::amount)
                 .sum();
     }
