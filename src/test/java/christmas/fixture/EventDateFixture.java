@@ -23,7 +23,7 @@ public enum EventDateFixture {
         this.dayType = dayType;
     }
 
-    public EventDate toEventDate() {
+    public EventDate create() {
         return new EventDate(date, discountAmount, hasStar, dayType);
     }
 }
