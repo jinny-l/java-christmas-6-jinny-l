@@ -2,7 +2,7 @@ package christmas.benefit.domain;
 
 public record Benefit(
         Event event,
-        int discountAmount
+        int discountValue
 ) {
 
     public boolean isGiveawayEvent() {

@@ -11,16 +11,25 @@ public record Benefits(List<Benefit> benefits) {
         );
     }
 
-    public int calculateTotalDiscountAmountWithGiveawayEvent() {
+    public int calculateDiscountValue() {
         return benefits.stream()
-                .mapToInt(Benefit::discountAmount)
+                .mapToInt(Benefit::discountValue)
                 .sum();
     }
 
-    public int calculateTotalDiscountAmountWithoutGiveawayEvent() {
+    public boolean haveGiveaway() {
         return benefits.stream()
-                .filter(benefit -> !benefit.isGiveawayEvent())
-                .mapToInt(Benefit::discountAmount)
-                .sum();
+                .anyMatch(benefit ->
+                        benefit.isGiveawayEvent()
+                                && benefit.discountValue() != 0
+                );
+    }
+
+    public int calculateGiveawayDiscountValue() {
+        return benefits.stream()
+                .filter(Benefit::isGiveawayEvent)
+                .findAny()
+                .map(Benefit::discountValue)
+                .orElse(0);
     }
 }

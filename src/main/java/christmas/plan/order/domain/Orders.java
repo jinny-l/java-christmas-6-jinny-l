@@ -4,15 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Orders {
+public record Orders(List<Order> menus) {
 
-    private final List<Order> menus;
-    private final int totalValue;
-
-    public Orders(List<Order> menus) {
+    public Orders {
         validateDuplicateMenu(menus);
-        this.menus = menus;
-        totalValue = calculateTotalValue(menus);
     }
 
     private void validateDuplicateMenu(List<Order> menus) {
@@ -24,15 +19,7 @@ public class Orders {
         }
     }
 
-    public List<Order> getMenus() {
-        return menus;
-    }
-
     public int getTotalValue() {
-        return totalValue;
-    }
-
-    private int calculateTotalValue(List<Order> menus) {
         return menus.stream()
                 .mapToInt(menu -> menu.menu().getPrice() * menu.amount())
                 .sum();
