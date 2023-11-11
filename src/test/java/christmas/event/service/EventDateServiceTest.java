@@ -4,22 +4,23 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import christmas.event.domain.EventDay;
-import christmas.event.dto.VisitDayRequest;
-import christmas.event.repository.EventDayRepository;
+import christmas.plan.date.domain.EventDate;
+import christmas.plan.date.dto.VisitDayRequest;
+import christmas.plan.date.repository.EventDateRepository;
+import christmas.plan.date.service.EventDateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-@DisplayName("[Service 단위 테스트] 이벤트 일정")
-class EventDayServiceTest {
+@DisplayName("[단위 테스트][Service] EventDate")
+class EventDateServiceTest {
 
-    private EventDayService eventDayService;
+    private EventDateService eventDateService;
 
     @BeforeEach
     void setUp() {
-        eventDayService = new EventDayService(new EventDayRepository());
+        eventDateService = new EventDateService(new EventDateRepository());
     }
 
     @DisplayName("별이 없는 날짜로 조회 시 정상적으로 조회되며 hasStar 값이 거짓이다.")
@@ -34,12 +35,12 @@ class EventDayServiceTest {
         VisitDayRequest visitDayRequest = new VisitDayRequest(input);
 
         // when
-        EventDay eventDay = eventDayService.findEventDay(visitDayRequest);
+        EventDate eventDate = eventDateService.findEventDay(visitDayRequest);
 
         // then
         assertAll(
-                () -> assertThat(eventDay.isSameDay(input)).isTrue(),
-                () -> assertThat(eventDay.hasStar()).isFalse()
+                () -> assertThat(eventDate.isSameDay(input)).isTrue(),
+                () -> assertThat(eventDate.hasStar()).isFalse()
         );
     }
 
@@ -51,12 +52,12 @@ class EventDayServiceTest {
         VisitDayRequest visitDayRequest = new VisitDayRequest(input);
 
         // when
-        EventDay eventDay = eventDayService.findEventDay(visitDayRequest);
+        EventDate eventDate = eventDateService.findEventDay(visitDayRequest);
 
         // then
         assertAll(
-                () -> assertThat(eventDay.isSameDay(input)).isTrue(),
-                () -> assertThat(eventDay.hasStar()).isTrue()
+                () -> assertThat(eventDate.isSameDay(input)).isTrue(),
+                () -> assertThat(eventDate.hasStar()).isTrue()
         );
     }
 
@@ -68,7 +69,7 @@ class EventDayServiceTest {
         VisitDayRequest visitDayRequest = new VisitDayRequest(input);
 
         // when & then
-        assertThatThrownBy(() -> eventDayService.findEventDay(visitDayRequest))
+        assertThatThrownBy(() -> eventDateService.findEventDay(visitDayRequest))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
