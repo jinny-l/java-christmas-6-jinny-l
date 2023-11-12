@@ -1,5 +1,7 @@
 package christmas.date.domain;
 
+import christmas.date.exception.EventDateError;
+import christmas.global.exception.ChristmasPromotionException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -29,6 +31,6 @@ public enum DayType {
         return Arrays.stream(DayType.values())
                 .filter(dayType -> dayType.daysOfWeek.contains(date.getDayOfWeek()))
                 .findAny()
-                .orElseThrow();
+                .orElseThrow(() -> new ChristmasPromotionException(EventDateError.INTERNAL_ERROR));
     }
 }

@@ -2,7 +2,9 @@ package christmas.date.service;
 
 import christmas.date.domain.EventDate;
 import christmas.date.dto.VisitDayRequest;
+import christmas.date.exception.EventDateError;
 import christmas.date.repository.EventDateRepository;
+import christmas.global.exception.ChristmasPromotionException;
 
 public class EventDateService {
 
@@ -14,6 +16,6 @@ public class EventDateService {
 
     public EventDate findEventDay(VisitDayRequest request) {
         return eventDateRepository.findByDayOfMonth(request.dayOfMonth())
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new ChristmasPromotionException(EventDateError.INVALID_DAY));
     }
 }
