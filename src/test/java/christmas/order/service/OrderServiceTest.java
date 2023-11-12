@@ -34,7 +34,7 @@ class OrderServiceTest {
         );
 
         // when
-        Orders orders = orderService.order(request);
+        Orders orders = orderService.createOrders(request);
 
         // then
         assertThat(orders).isNotNull();
@@ -49,7 +49,7 @@ class OrderServiceTest {
         );
 
         // when & then
-        assertThatThrownBy(() -> orderService.order(request))
+        assertThatThrownBy(() -> orderService.createOrders(request))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -65,7 +65,7 @@ class OrderServiceTest {
         );
 
         // when & then
-        assertThatThrownBy(() -> orderService.order(request))
+        assertThatThrownBy(() -> orderService.createOrders(request))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

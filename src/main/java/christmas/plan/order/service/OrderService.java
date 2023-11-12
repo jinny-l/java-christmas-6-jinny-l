@@ -10,7 +10,7 @@ public class OrderService {
     public OrderService() {
     }
 
-    public Orders order(OrdersRequest ordersRequest) {
+    public Orders createOrders(OrdersRequest ordersRequest) {
         Orders orders = ordersRequest.toEntity();
 
         validateOrderAmount(orders);
