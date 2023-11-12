@@ -1,7 +1,7 @@
 package christmas.date.repository;
 
 import christmas.date.domain.EventDate;
-import christmas.global.util.io.CSVReader;
+import christmas.global.util.CSVReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

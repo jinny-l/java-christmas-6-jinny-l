@@ -1,4 +1,4 @@
-package christmas.global.util.io;
+package christmas.global.util;
 
 import java.io.IOException;
 import java.nio.file.Files;
