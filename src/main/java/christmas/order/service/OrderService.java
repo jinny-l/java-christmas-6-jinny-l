@@ -1,7 +1,9 @@
 package christmas.order.service;
 
+import christmas.global.exception.ChristmasPromotionException;
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
+import christmas.order.exception.OrderError;
 
 public class OrderService {
 
@@ -21,13 +23,13 @@ public class OrderService {
 
     private void validateOrderFood(Orders orders) {
         if (orders.isAllDrink()) {
-            throw new IllegalArgumentException();
+            throw new ChristmasPromotionException(OrderError.ALL_DRINK_ORDER);
         }
     }
 
     private void validateOrderAmount(Orders orders) {
         if (orders.totalAmount() > ORDER_AMOUNT_MAX_VALUE) {
-            throw new IllegalArgumentException();
+            throw new ChristmasPromotionException(OrderError.EXCEEDED_MAX_ORDER_AMOUNT);
         }
     }
 }

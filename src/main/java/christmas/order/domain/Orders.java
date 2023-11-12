@@ -1,5 +1,7 @@
 package christmas.order.domain;
 
+import christmas.global.exception.ChristmasPromotionException;
+import christmas.order.exception.OrderError;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +17,7 @@ public record Orders(List<Order> menus) {
         if (menus.stream()
                 .map(Order::menu)
                 .anyMatch(menu -> !uniqueMenus.add(menu))) {
-            throw new IllegalArgumentException();
+            throw new ChristmasPromotionException(OrderError.DUPLICATE_MENU);
         }
     }
 

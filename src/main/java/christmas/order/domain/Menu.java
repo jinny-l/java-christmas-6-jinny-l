@@ -1,5 +1,7 @@
 package christmas.order.domain;
 
+import christmas.global.exception.ChristmasPromotionException;
+import christmas.order.exception.OrderError;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +42,7 @@ public enum Menu {
         return MENUS.stream()
                 .filter(menu -> Objects.equals(menu.name, name))
                 .findAny()
-                .orElseThrow();
+                .orElseThrow(() -> new ChristmasPromotionException(OrderError.INVALID_MENU));
     }
 
     public String getName() {

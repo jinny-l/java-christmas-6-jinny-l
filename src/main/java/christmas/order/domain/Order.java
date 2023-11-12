@@ -1,5 +1,8 @@
 package christmas.order.domain;
 
+import christmas.global.exception.ChristmasPromotionException;
+import christmas.order.exception.OrderError;
+
 public record Order(
         Menu menu,
         int amount
@@ -13,7 +16,7 @@ public record Order(
 
     private void validateAmount(int amount) {
         if (amount < AMOUNT_MIN_VALUE) {
-            throw new IllegalArgumentException();
+            throw new ChristmasPromotionException(OrderError.INVALID_AMOUNT);
         }
     }
 
