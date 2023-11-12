@@ -1,7 +1,6 @@
 package christmas.date.service;
 
 import christmas.date.domain.EventDate;
-import christmas.date.dto.VisitDayRequest;
 import christmas.date.exception.EventDateError;
 import christmas.date.repository.EventDateRepository;
 import christmas.global.exception.ChristmasPromotionException;
@@ -14,8 +13,8 @@ public class EventDateService {
         this.eventDateRepository = eventDateRepository;
     }
 
-    public EventDate findEventDay(VisitDayRequest request) {
-        return eventDateRepository.findByDayOfMonth(request.dayOfMonth())
+    public EventDate findEventDay(int dayOfMonth) {
+        return eventDateRepository.findByDayOfMonth(dayOfMonth)
                 .orElseThrow(() -> new ChristmasPromotionException(EventDateError.INVALID_DAY));
     }
 }

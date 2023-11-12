@@ -5,7 +5,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import christmas.date.domain.EventDate;
-import christmas.date.dto.VisitDayRequest;
 import christmas.date.repository.EventDateRepository;
 import christmas.date.service.EventDateService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,11 +30,8 @@ class EventDateServiceTest {
             20, 21, 22, 23, 26, 27, 28, 29, 30
     })
     void findEventDay_hasStar_false(int input) {
-        // given
-        VisitDayRequest visitDayRequest = new VisitDayRequest(input);
-
         // when
-        EventDate eventDate = eventDateService.findEventDay(visitDayRequest);
+        EventDate eventDate = eventDateService.findEventDay(input);
 
         // then
         assertAll(
@@ -48,11 +44,8 @@ class EventDateServiceTest {
     @ParameterizedTest
     @ValueSource(ints = {3, 10, 17, 17, 24, 25, 31})
     void findEventDay_hasStar_true(int input) {
-        // given
-        VisitDayRequest visitDayRequest = new VisitDayRequest(input);
-
         // when
-        EventDate eventDate = eventDateService.findEventDay(visitDayRequest);
+        EventDate eventDate = eventDateService.findEventDay(input);
 
         // then
         assertAll(
@@ -65,11 +58,8 @@ class EventDateServiceTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 32})
     void findEventDay_invalidDay_ExceptionThrown(int input) {
-        // given
-        VisitDayRequest visitDayRequest = new VisitDayRequest(input);
-
         // when & then
-        assertThatThrownBy(() -> eventDateService.findEventDay(visitDayRequest))
+        assertThatThrownBy(() -> eventDateService.findEventDay(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
