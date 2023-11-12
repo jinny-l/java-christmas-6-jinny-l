@@ -1,8 +1,8 @@
-package christmas.plan.date.service;
+package christmas.date.service;
 
-import christmas.plan.date.domain.EventDate;
-import christmas.plan.date.dto.VisitDayRequest;
-import christmas.plan.date.repository.EventDateRepository;
+import christmas.date.domain.EventDate;
+import christmas.date.dto.VisitDayRequest;
+import christmas.date.repository.EventDateRepository;
 
 public class EventDateService {
 

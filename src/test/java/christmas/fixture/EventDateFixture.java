@@ -1,7 +1,7 @@
 package christmas.fixture;
 
-import christmas.plan.date.domain.DayType;
-import christmas.plan.date.domain.EventDate;
+import christmas.date.domain.DayType;
+import christmas.date.domain.EventDate;
 import java.time.LocalDate;
 
 public enum EventDateFixture {

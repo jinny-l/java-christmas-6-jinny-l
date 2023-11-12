@@ -1,6 +1,6 @@
-package christmas.plan.date.dto;
+package christmas.date.dto;
 
-import christmas.plan.date.domain.EventDate;
+import christmas.date.domain.EventDate;
 
 public record EventDateResponse(
         int dayOfMonth

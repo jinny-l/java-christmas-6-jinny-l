@@ -3,8 +3,8 @@ package christmas.benefit.domain;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import christmas.date.domain.EventDate;
 import christmas.fixture.EventDateFixture;
-import christmas.plan.date.domain.EventDate;
 import christmas.plan.domain.Plan;
 import christmas.plan.order.domain.Menu;
 import christmas.plan.order.domain.Order;

@@ -4,10 +4,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import christmas.plan.date.domain.EventDate;
-import christmas.plan.date.dto.VisitDayRequest;
-import christmas.plan.date.repository.EventDateRepository;
-import christmas.plan.date.service.EventDateService;
+import christmas.date.domain.EventDate;
+import christmas.date.dto.VisitDayRequest;
+import christmas.date.repository.EventDateRepository;
+import christmas.date.service.EventDateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

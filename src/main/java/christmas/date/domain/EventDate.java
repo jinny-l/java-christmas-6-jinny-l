@@ -1,4 +1,4 @@
-package christmas.plan.date.domain;
+package christmas.date.domain;
 
 import java.time.LocalDate;
 import java.util.List;

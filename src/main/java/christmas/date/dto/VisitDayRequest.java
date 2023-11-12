@@ -1,4 +1,4 @@
-package christmas.plan.date.dto;
+package christmas.date.dto;
 
 public record VisitDayRequest(int dayOfMonth) {
 }

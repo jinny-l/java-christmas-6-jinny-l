@@ -1,6 +1,6 @@
 package christmas.plan.dto;
 
-import christmas.plan.date.dto.EventDateResponse;
+import christmas.date.dto.EventDateResponse;
 import christmas.plan.domain.Plan;
 import christmas.plan.order.dto.OrdersResponse;
 
