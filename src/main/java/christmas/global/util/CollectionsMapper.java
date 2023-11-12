@@ -16,11 +16,15 @@ public class CollectionsMapper {
     public static Map<String, Integer> listToMap(String delimiter, List<String> input) {
         validateNotEmptyList(input);
         validateDelimiter(delimiter, input);
+
         return input.stream()
                 .map(element -> element.split(delimiter))
-                .collect(Collectors.toMap(
+                .collect(Collectors.toUnmodifiableMap(
                         element -> element[KEY_INDEX],
-                        element -> Integer.parseInt(element[VALUE_INDEX])
+                        element -> Integer.parseInt(element[VALUE_INDEX]),
+                        (oldKey, newKey) -> {
+                            throw new IllegalArgumentException();
+                        }
                 ));
     }
 
