@@ -13,23 +13,18 @@ public class CollectionsMapper {
     private CollectionsMapper() {
     }
 
-    public static Map<String, Integer> listToMap(String delimiter, List<String> input) {
+    public static Map<String, Integer> splitListToMap(String delimiter, List<String> input) {
         validateNotEmptyList(input);
-        validateDelimiter(delimiter, input);
 
         return input.stream()
                 .map(element -> element.split(delimiter))
                 .collect(Collectors.toUnmodifiableMap(
                         element -> element[KEY_INDEX],
-                        element -> Integer.parseInt(element[VALUE_INDEX]),
-                        (oldKey, newKey) -> {
-                            throw new IllegalArgumentException();
-                        }
+                        element -> Integer.parseInt(element[VALUE_INDEX])
                 ));
     }
 
     public static List<String> splitStringToList(String delimiter, String input) {
-        validateDelimiter(delimiter, input);
         return Stream.of(input.split(delimiter))
                 .filter(CollectionsMapper::validateNotBlank)
                 .toList();
@@ -46,17 +41,5 @@ public class CollectionsMapper {
             throw new IllegalArgumentException();
         }
         return true;
-    }
-
-    private static void validateDelimiter(String delimiter, List<String> input) {
-        input.forEach(element ->
-                validateDelimiter(delimiter, element)
-        );
-    }
-
-    private static void validateDelimiter(String delimiter, String input) {
-        if (!input.contains(delimiter)) {
-            throw new IllegalArgumentException();
-        }
     }
 }
