@@ -1,10 +1,11 @@
-package christmas.order.service;
+package christmas.domain.order;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
+import christmas.order.service.OrderService;
 import java.util.Collections;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;

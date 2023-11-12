@@ -1,7 +1,9 @@
-package christmas.benefit.domain;
+package christmas.domain.benefit;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import christmas.benefit.domain.Benefits;
+import christmas.benefit.domain.Event;
 import christmas.fixture.PlanFixture;
 import christmas.plan.domain.Plan;
 import org.junit.jupiter.api.DisplayName;
