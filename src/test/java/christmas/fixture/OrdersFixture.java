@@ -1,8 +1,8 @@
 package christmas.fixture;
 
-import christmas.plan.order.domain.Menu;
-import christmas.plan.order.domain.Order;
-import christmas.plan.order.domain.Orders;
+import christmas.order.domain.Menu;
+import christmas.order.domain.Order;
+import christmas.order.domain.Orders;
 import java.util.List;
 
 public enum OrdersFixture {

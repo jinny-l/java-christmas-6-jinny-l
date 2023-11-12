@@ -1,7 +1,7 @@
-package christmas.plan.order.dto;
+package christmas.order.dto;
 
-import christmas.plan.order.domain.Order;
-import christmas.plan.order.domain.Orders;
+import christmas.order.domain.Order;
+import christmas.order.domain.Orders;
 import java.util.List;
 
 public record OrdersResponse(

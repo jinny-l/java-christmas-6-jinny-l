@@ -1,8 +1,8 @@
 package christmas.fixture;
 
 import christmas.date.domain.EventDate;
+import christmas.order.domain.Orders;
 import christmas.plan.domain.Plan;
-import christmas.plan.order.domain.Orders;
 
 public enum PlanFixture {
 

@@ -1,8 +1,8 @@
 package christmas.plan.dto;
 
 import christmas.date.dto.EventDateResponse;
+import christmas.order.dto.OrdersResponse;
 import christmas.plan.domain.Plan;
-import christmas.plan.order.dto.OrdersResponse;
 
 public record PlanResponse(
         EventDateResponse eventDateResponse,

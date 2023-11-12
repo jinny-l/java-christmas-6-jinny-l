@@ -1,8 +1,8 @@
 package christmas.payment.service;
 
 import christmas.benefit.domain.Benefits;
+import christmas.order.domain.Orders;
 import christmas.payment.domain.Payment;
-import christmas.plan.order.domain.Orders;
 
 public class PaymentService {
 

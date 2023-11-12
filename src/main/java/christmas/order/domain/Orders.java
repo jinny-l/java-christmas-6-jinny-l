@@ -1,4 +1,4 @@
-package christmas.plan.order.domain;
+package christmas.order.domain;
 
 import java.util.HashSet;
 import java.util.List;
