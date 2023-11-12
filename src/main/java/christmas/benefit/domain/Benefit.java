@@ -8,4 +8,8 @@ public record Benefit(
     public boolean isGiveawayEvent() {
         return event == Event.GIVEAWAY;
     }
+
+    public boolean isZeroDiscount() {
+        return discountValue == 0;
+    }
 }
