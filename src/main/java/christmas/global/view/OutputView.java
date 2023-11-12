@@ -1,13 +1,20 @@
 package christmas.global.view;
 
 import christmas.benefit.dto.BenefitsResponse;
+import christmas.order.dto.OrdersResponse;
 import christmas.payment.dto.PaymentResponse;
-import christmas.plan.order.dto.OrdersResponse;
 import christmas.promotion.dto.BadgeResponse;
 import christmas.promotion.dto.PromotionResponse;
 import java.util.stream.Collectors;
 
 public class OutputView {
+
+    private OutputView() {
+    }
+
+    public static void printError(Exception e) {
+        System.out.printf("[ERROR] %s%n", e.getMessage());
+    }
 
     public static void printGreetingMessage() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
