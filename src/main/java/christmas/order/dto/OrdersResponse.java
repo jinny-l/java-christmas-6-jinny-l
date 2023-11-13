@@ -9,9 +9,10 @@ public record OrdersResponse(
 ) {
 
     public static OrdersResponse from(Orders orders) {
-        return new OrdersResponse(orders.menus().stream()
-                .map(OrderResponse::from)
-                .toList()
+        return new OrdersResponse(
+                orders.menus().stream()
+                        .map(OrderResponse::from)
+                        .toList()
         );
     }
 

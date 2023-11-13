@@ -11,15 +11,19 @@ public record OrdersRequest(
 ) {
 
     public static OrdersRequest from(Map<String, Integer> input) {
-        return new OrdersRequest(input.entrySet().stream()
-                .map(entry -> new OrderRequest(entry.getKey(), entry.getValue()))
-                .toList());
+        return new OrdersRequest(
+                input.entrySet().stream()
+                        .map(entry -> new OrderRequest(entry.getKey(), entry.getValue()))
+                        .toList()
+        );
     }
 
     public Orders toEntity() {
-        return new Orders(menus.stream()
-                .map(OrderRequest::toEntity)
-                .toList());
+        return new Orders(
+                menus.stream()
+                        .map(OrderRequest::toEntity)
+                        .toList()
+        );
     }
 
     private record OrderRequest(
