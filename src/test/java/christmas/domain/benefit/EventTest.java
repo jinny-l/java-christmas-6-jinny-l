@@ -1,52 +1,66 @@
 package christmas.domain.benefit;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import christmas.benefit.domain.Event;
 import christmas.date.domain.EventDate;
 import christmas.fixture.EventDateFixture;
-import christmas.order.domain.Menu;
-import christmas.order.domain.Order;
+import christmas.fixture.OrdersAmountFixture;
+import christmas.fixture.OrdersFixture;
 import christmas.order.domain.Orders;
 import christmas.plan.domain.Plan;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("[단위 테스트][Domain] Event")
 class EventTest {
 
+    @DisplayName("최소 주문 금액을 만족하지 못했을 경우 할인 금액을 정확히 계산한다.")
+    @Test
+    void calculateEventDiscountValue_notSatisfiedCondition() {
+        // given
+        Plan plan = new Plan(
+                EventDateFixture.디데이O_별X_평일_4일.create(),
+                OrdersFixture.만원_이하_주문.create()
+        );
+
+        // when
+        List<Integer> actual = Arrays.stream(Event.values())
+                .map(event -> event.calculateDiscountValue(plan))
+                .collect(Collectors.toList());
+
+        // then
+        assertThat(actual).contains(0, 0, 0, 0, 0);
+    }
+
     @DisplayName("크리스마스 디데이 할인 이벤트에 해당할 경우 할인 금액을 정확히 계산한다.")
     @Test
-    void calculateDDayEventDiscountAmount_isDDayEventDate() {
+    void calculateDDayEventDiscountValue_isDDayEventDate() {
         // given
-        EventDate eventDate = EventDateFixture.디데이O_별X_평일.create();
+        EventDate eventDate = EventDateFixture.디데이O_별X_평일_4일.create();
         Plan plan = new Plan(
                 eventDate,
-                new Orders(List.of(
-                        new Order(Menu.CHOCO_CAKE, 1),
-                        new Order(Menu.BBQ_RIBS, 19)))
+                OrdersFixture.메인_주문_12만원_이하.create()
         );
 
         // when
         int actual = Event.D_DAY.calculateDiscountValue(plan);
 
         // then
-        assertThat(actual).isEqualTo(eventDate.discountAmount());
+        assertThat(actual).isEqualTo(1300);
     }
 
     @DisplayName("크리스마스 디데이 할인 이벤트에 해당하지 않을 경우 할인 금액을 정확히 계산한다.")
     @Test
-    void calculateDDayEventDiscountAmount_isNotDDayEventDate() {
+    void calculateDDayEventDiscountValue_isNotDDayEventDate() {
         // given
-        EventDate eventDate = EventDateFixture.디데이X_별X_평일.create();
         Plan plan = new Plan(
-                eventDate,
-                new Orders(List.of(
-                        new Order(Menu.CHOCO_CAKE, 1),
-                        new Order(Menu.BBQ_RIBS, 19)))
+                EventDateFixture.디데이X_별X_평일.create(),
+                OrdersFixture.메인_주문_12만원_이하.create()
         );
 
         // when
@@ -58,118 +72,94 @@ class EventTest {
 
     @DisplayName("평일 할인 이벤트의 할인 금액을 정확히 계산한다.")
     @Test
-    void calculateWeekdayEventDiscountAmount() {
+    void calculateWeekdayEventDiscountValue() {
         // given
-        EventDate weekdayEventDate = EventDateFixture.디데이O_별X_평일.create();
-        Plan weekdayPlan = new Plan(
-                weekdayEventDate,
-                new Orders(List.of(
-                        new Order(Menu.CHOCO_CAKE, 1),
-                        new Order(Menu.BBQ_RIBS, 1)))
-        );
+        EventDate weekdayEventDate = EventDateFixture.디데이O_별X_평일_4일.create();
+        EventDate weekendEventDate = EventDateFixture.디데이O_별X_주말_1일.create();
+        Orders orders = OrdersAmountFixture.디저트_초코케이크_주문.create(1);
 
-        EventDate weekendEventDate = EventDateFixture.디데이O_별X_주말.create();
-        Plan weekendPlan = new Plan(
-                weekendEventDate,
-                new Orders(List.of(
-                        new Order(Menu.CHOCO_CAKE, 1),
-                        new Order(Menu.BBQ_RIBS, 1)))
-        );
+        Plan weekdayPlan = new Plan(weekdayEventDate, orders);
+        Plan weekendPlan = new Plan(weekendEventDate, orders);
 
         // when
-        int weekdayPlanDiscountAmount = Event.WEEKDAY.calculateDiscountValue(weekdayPlan);
-        int weekendPlanDiscountAmount = Event.WEEKDAY.calculateDiscountValue(weekendPlan);
+        int weekdayPlanDiscountValue = Event.WEEKDAY.calculateDiscountValue(weekdayPlan);
+        int weekendPlanDiscountValue = Event.WEEKDAY.calculateDiscountValue(weekendPlan);
 
         // then
         assertAll(
-                () -> assertThat(weekdayPlanDiscountAmount).isEqualTo(2023),
-                () -> assertThat(weekendPlanDiscountAmount).isZero()
+                () -> assertThat(weekdayPlanDiscountValue).isEqualTo(2023),
+                () -> assertThat(weekendPlanDiscountValue).isZero()
         );
     }
 
     @DisplayName("주말 할인 이벤트의 할인 금액을 정확히 계산한다.")
     @Test
-    void calculateWeekendEventDiscountAmount() {
+    void calculateWeekendEventDiscountValue() {
         // given
-        EventDate weekdayEventDate = EventDateFixture.디데이O_별X_평일.create();
-        Plan weekdayPlan = new Plan(
-                weekdayEventDate,
-                new Orders(Collections.singletonList(
-                        new Order(Menu.BBQ_RIBS, 1)))
-        );
+        EventDate weekdayEventDate = EventDateFixture.디데이O_별X_평일_4일.create();
+        EventDate weekendEventDate = EventDateFixture.디데이O_별X_주말_1일.create();
+        Orders orders = OrdersAmountFixture.메인_바비큐립_주문.create(1);
 
-        EventDate weekendEventDate = EventDateFixture.디데이O_별X_주말.create();
-        Plan weekendPlan = new Plan(
-                weekendEventDate,
-                new Orders(Collections.singletonList(
-                        new Order(Menu.BBQ_RIBS, 1)))
-        );
+        Plan weekdayPlan = new Plan(weekdayEventDate, orders);
+        Plan weekendPlan = new Plan(weekendEventDate, orders);
 
         // when
-        int weekdayPlanDiscountAmount = Event.WEEKEND.calculateDiscountValue(weekdayPlan);
-        int weekendPlanDiscountAmount = Event.WEEKEND.calculateDiscountValue(weekendPlan);
+        int weekdayPlanDiscountValue = Event.WEEKEND.calculateDiscountValue(weekdayPlan);
+        int weekendPlanDiscountValue = Event.WEEKEND.calculateDiscountValue(weekendPlan);
 
         // then
         assertAll(
-                () -> assertThat(weekdayPlanDiscountAmount).isZero(),
-                () -> assertThat(weekendPlanDiscountAmount).isEqualTo(2023)
+                () -> assertThat(weekdayPlanDiscountValue).isZero(),
+                () -> assertThat(weekendPlanDiscountValue).isEqualTo(2023)
         );
     }
 
     @DisplayName("특별 할인 이벤트의 할인 금액을 정확히 계산한다.")
     @Test
-    void calculateStarDayEventDiscountAmount() {
+    void calculateStarDayEventDiscountValue() {
         // given
-        EventDate starDate = EventDateFixture.디데이O_별O_평일.create();
-        Plan starDayPlan = new Plan(
-                starDate,
-                new Orders(Collections.singletonList(
-                        new Order(Menu.BBQ_RIBS, 1)))
-        );
+        EventDate starDate = EventDateFixture.디데이O_별O_평일_3일.create();
+        EventDate noStarDate = EventDateFixture.디데이O_별X_주말_1일.create();
+        Orders orders = OrdersFixture.메인_주문_12만원_이하.create();
 
-        EventDate noStarDate = EventDateFixture.디데이O_별X_주말.create();
-        Plan noStarDayPlan = new Plan(
-                noStarDate,
-                new Orders(Collections.singletonList(
-                        new Order(Menu.BBQ_RIBS, 1)))
-        );
+        Plan starDayPlan = new Plan(starDate, orders);
+        Plan noStarDayPlan = new Plan(noStarDate, orders);
 
         // when
-        int starDayPlanDiscountAmount = Event.STAR_DAY.calculateDiscountValue(starDayPlan);
-        int noStarDayPlanDiscountAmount = Event.STAR_DAY.calculateDiscountValue(noStarDayPlan);
+        int starDayPlanDiscountValue = Event.STAR_DAY.calculateDiscountValue(starDayPlan);
+        int noStarDayPlanDiscountValue = Event.STAR_DAY.calculateDiscountValue(noStarDayPlan);
 
         // then
         assertAll(
-                () -> assertThat(starDayPlanDiscountAmount).isEqualTo(1000),
-                () -> assertThat(noStarDayPlanDiscountAmount).isZero()
+                () -> assertThat(starDayPlanDiscountValue).isEqualTo(1000),
+                () -> assertThat(noStarDayPlanDiscountValue).isZero()
         );
     }
 
     @DisplayName("증정 이벤트의 할인 금액을 정확히 계산한다.")
     @Test
-    void test() {
+    void calculateGiveawayEventDiscountValue() {
         // given
-        EventDate eventDate = EventDateFixture.디데이O_별O_평일.create();
+        EventDate eventDate = EventDateFixture.디데이O_별O_평일_3일.create();
+
         Plan giveawayPlan = new Plan(
                 eventDate,
-                new Orders(Collections.singletonList(
-                        new Order(Menu.BBQ_RIBS, 3)))
+                OrdersFixture.메인_주문_12만원_이상.create()
         );
 
         Plan noGiveawayPlan = new Plan(
                 eventDate,
-                new Orders(Collections.singletonList(
-                        new Order(Menu.BBQ_RIBS, 1)))
+                OrdersFixture.메인_주문_12만원_이하.create()
         );
 
         // when
-        int giveawayPlanDiscountAmount = Event.GIVEAWAY.calculateDiscountValue(giveawayPlan);
-        int noGiveawayPlanDiscountAmount = Event.GIVEAWAY.calculateDiscountValue(noGiveawayPlan);
+        int giveawayPlanDiscountValue = Event.GIVEAWAY.calculateDiscountValue(giveawayPlan);
+        int noGiveawayPlanDiscountValue = Event.GIVEAWAY.calculateDiscountValue(noGiveawayPlan);
 
         // then
         assertAll(
-                () -> assertThat(giveawayPlanDiscountAmount).isEqualTo(25000),
-                () -> assertThat(noGiveawayPlanDiscountAmount).isZero()
+                () -> assertThat(giveawayPlanDiscountValue).isEqualTo(25000),
+                () -> assertThat(noGiveawayPlanDiscountValue).isZero()
         );
     }
 }

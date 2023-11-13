@@ -7,6 +7,9 @@ import java.util.List;
 
 public enum OrdersFixture {
 
+    만원_이하_주문(
+            List.of(new Order(Menu.ICE_CREAM, 1))
+    ),
     음료_주문(
             List.of(new Order(Menu.RED_WINE, 1))
     ),
