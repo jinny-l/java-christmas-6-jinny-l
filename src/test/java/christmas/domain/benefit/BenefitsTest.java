@@ -1,6 +1,6 @@
 package christmas.domain.benefit;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.benefit.domain.Benefits;
 import christmas.benefit.domain.Event;
@@ -44,4 +44,33 @@ class BenefitsTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @DisplayName("증정 이벤트에 해당할 경우 참을 반환한다.")
+    @Test
+    void haveGiveaway_true() {
+        // given
+        Benefits benefits = Benefits.from(
+                PlanFixture.디데이O_별X_평일_메인_주문_12만원_이상.create()
+        );
+
+        // when
+        boolean actual = benefits.haveGiveaway();
+
+        // then
+        assertThat(actual).isTrue();
+    }
+
+    @DisplayName("증정 이벤트에 해당하지 않을 경우 거짓을 반환한다.")
+    @Test
+    void haveGiveaway_false() {
+        // given
+        Benefits benefits = Benefits.from(
+                PlanFixture.디데이O_별X_평일_메인_주문_12만원_이하.create()
+        );
+
+        // when
+        boolean actual = benefits.haveGiveaway();
+
+        // then
+        assertThat(actual).isFalse();
+    }
 }
