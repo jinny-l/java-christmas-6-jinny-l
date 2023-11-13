@@ -22,7 +22,7 @@ public class OutputView {
 
     public static void printPromotion(PromotionResponse promotionResponse) {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n%n",
-                promotionResponse.planResponse().eventDateResponse().dayOfMonth()
+                promotionResponse.planResponse().visitDayResponse().dayOfMonth()
         );
 
         printOrders(promotionResponse.planResponse().ordersResponse());

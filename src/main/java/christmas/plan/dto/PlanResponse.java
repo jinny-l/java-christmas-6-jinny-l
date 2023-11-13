@@ -1,17 +1,17 @@
 package christmas.plan.dto;
 
-import christmas.date.dto.EventDateResponse;
+import christmas.date.dto.VisitDayResponse;
 import christmas.order.dto.OrdersResponse;
 import christmas.plan.domain.Plan;
 
 public record PlanResponse(
-        EventDateResponse eventDateResponse,
+        VisitDayResponse visitDayResponse,
         OrdersResponse ordersResponse
 ) {
 
     public static PlanResponse from(Plan plan) {
         return new PlanResponse(
-                EventDateResponse.from(plan.eventDate()),
+                VisitDayResponse.from(plan.eventDate()),
                 OrdersResponse.from(plan.orders())
         );
     }
