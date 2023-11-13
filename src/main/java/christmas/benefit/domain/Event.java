@@ -2,8 +2,6 @@ package christmas.benefit.domain;
 
 import christmas.benefit.config.EventConfig;
 import christmas.plan.domain.Plan;
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Function;
 
 public enum Event {
@@ -45,15 +43,6 @@ public enum Event {
 
     public String getName() {
         return name;
-    }
-
-    public static List<Benefit> calculateBenefits(Plan plan) {
-        return Arrays.stream(Event.values())
-                .map(event -> new Benefit(
-                        event,
-                        event.calculateDiscountValue(plan))
-                )
-                .toList();
     }
 
     public int calculateDiscountValue(Plan plan) {
