@@ -23,7 +23,7 @@ public enum Event {
             plan -> EventConfig.STAR_DAY_DISCOUNT_VALUE
     ),
     GIVEAWAY("증정 이벤트",
-            plan -> plan.orders().calculateTotalValue() > EventConfig.MIN_ORDER_VALUE_FOR_GIVEAWAY,
+            plan -> plan.orders().calculateTotalValue() >= EventConfig.MIN_ORDER_VALUE_FOR_GIVEAWAY,
             plan -> EventConfig.GIVEAWAY_DISCOUNT_VALUE
     );
 
