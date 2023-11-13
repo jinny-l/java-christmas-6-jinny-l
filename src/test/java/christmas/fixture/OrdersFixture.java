@@ -13,6 +13,12 @@ public enum OrdersFixture {
     음료_주문(
             List.of(new Order(Menu.RED_WINE, 1))
     ),
+    음료_및_메인_주문(
+            List.of(
+                    new Order(Menu.RED_WINE, 1),
+                    new Order(Menu.BBQ_RIBS, 1)
+            )
+    ),
     메인_주문_12만원_이상(
             List.of(new Order(Menu.BBQ_RIBS, 3))
     ),

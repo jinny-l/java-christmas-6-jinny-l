@@ -1,11 +1,12 @@
 package christmas.domain.order;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import christmas.order.domain.Menu;
 import christmas.order.domain.Order;
+import christmas.order.exception.OrderError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -37,6 +38,7 @@ class OrderTest {
     void newOrder_invalidMenuAmount_ExceptionThrown(int input) {
         // when & then
         assertThatThrownBy(() -> new Order(Menu.CHOCO_CAKE, input))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(OrderError.INVALID_AMOUNT.getMessage());
     }
 }

@@ -1,12 +1,14 @@
 package christmas.domain.order;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import christmas.fixture.OrdersFixture;
 import christmas.order.domain.Menu;
 import christmas.order.domain.Order;
 import christmas.order.domain.Orders;
+import christmas.order.exception.OrderError;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,19 +50,16 @@ class OrdersTest {
 
         // when & then
         assertThatThrownBy(() -> new Orders(menus))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(OrderError.DUPLICATE_MENU.getMessage());
     }
 
     @DisplayName("주문이 모두 음료 메뉴인지 정확히 판단한다.")
     @Test
     void isAllDrink() {
         // given
-        Order wine = new Order(Menu.RED_WINE, 1);
-        Order coke = new Order(Menu.ZERO_COLA, 1);
-        Order pasta = new Order(Menu.CHRISTMAS_PASTA, 1);
-
-        Orders drinks = new Orders(List.of(wine, coke));
-        Orders foodAndDrinks = new Orders(List.of(wine, coke, pasta));
+        Orders drinks = OrdersFixture.음료_주문.create();
+        Orders foodAndDrinks = OrdersFixture.음료_및_메인_주문.create();
 
         // when & then
         assertAll(
@@ -84,7 +83,6 @@ class OrdersTest {
         // when
         int actual = orders.totalAmount();
 
-
         // then
         assertThat(actual).isEqualTo(expected);
     }
@@ -102,7 +100,6 @@ class OrdersTest {
 
         // when
         int actual = orders.getTotalValue();
-
 
         // then
         assertThat(actual).isEqualTo(Menu.RED_WINE.getPrice() + Menu.CHRISTMAS_PASTA.getPrice());
