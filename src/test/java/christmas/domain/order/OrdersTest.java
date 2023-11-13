@@ -33,7 +33,7 @@ class OrdersTest {
         // then
         assertAll(
                 () -> assertThat(actual).isNotNull(),
-                () -> assertThat(actual.totalAmount()).isEqualTo(20)
+                () -> assertThat(actual.calculateTotalAmount()).isEqualTo(20)
         );
     }
 
@@ -81,7 +81,7 @@ class OrdersTest {
         Orders orders = new Orders(menus);
 
         // when
-        int actual = orders.totalAmount();
+        int actual = orders.calculateTotalAmount();
 
         // then
         assertThat(actual).isEqualTo(expected);
@@ -99,7 +99,7 @@ class OrdersTest {
         Orders orders = new Orders(menus);
 
         // when
-        int actual = orders.getTotalValue();
+        int actual = orders.calculateTotalValue();
 
         // then
         assertThat(actual).isEqualTo(Menu.RED_WINE.getPrice() + Menu.CHRISTMAS_PASTA.getPrice());

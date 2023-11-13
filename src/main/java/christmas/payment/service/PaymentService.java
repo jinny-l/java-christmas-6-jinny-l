@@ -10,7 +10,7 @@ public class PaymentService {
     }
 
     public Payment createPayment(Orders orders, Benefits benefits) {
-        int totalValue = orders.getTotalValue();
+        int totalValue = orders.calculateTotalValue();
 
         return new Payment(
                 totalValue,

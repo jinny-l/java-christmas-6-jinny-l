@@ -28,7 +28,7 @@ public class OrderService {
     }
 
     private void validateOrderAmount(Orders orders) {
-        if (orders.totalAmount() > ORDER_AMOUNT_MAX_VALUE) {
+        if (orders.calculateTotalAmount() > ORDER_AMOUNT_MAX_VALUE) {
             throw new ChristmasPromotionException(OrderError.EXCEEDED_MAX_ORDER_AMOUNT);
         }
     }

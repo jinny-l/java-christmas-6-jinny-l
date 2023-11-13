@@ -21,7 +21,7 @@ public record Orders(List<Order> menus) {
         }
     }
 
-    public int getTotalValue() {
+    public int calculateTotalValue() {
         return menus.stream()
                 .mapToInt(menu -> menu.menu().getPrice() * menu.amount())
                 .sum();
@@ -37,7 +37,7 @@ public record Orders(List<Order> menus) {
                 .count();
     }
 
-    public int totalAmount() {
+    public int calculateTotalAmount() {
         return menus.stream()
                 .mapToInt(Order::amount)
                 .sum();
