@@ -67,7 +67,9 @@ public class InputView {
         } catch (IllegalStateException e) { // Map 변환 시 key가 중복될 경우 발생
             throw new ChristmasPromotionException(OrderError.DUPLICATE_MENU);
 
-        } catch (NumberFormatException e) { // Map 변환 시 value를 String에서 Integer로 변환할 때 int가 아닐 경우 발생
+        // NumberFormatException: Map 변환 시 value를 String에서 Integer로 변환할 때 int가 아닐 경우 발생
+        // ArrayIndexOutOfBoundsException: Map으로 파싱할 때 구분자 뒤의 값이 없을 때 발생
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new ChristmasPromotionException(OrderError.INVALID_FORMAT);
         }
     }
