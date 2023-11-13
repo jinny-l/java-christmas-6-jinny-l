@@ -10,10 +10,11 @@ public record BenefitsResponse(
 ) {
 
     public static BenefitsResponse from(Benefits benefits) {
-        return new BenefitsResponse(benefits.benefits().stream()
-                .filter(benefit -> !benefit.isZeroDiscount())
-                .map(BenefitResponse::from)
-                .toList(),
+        return new BenefitsResponse(
+                benefits.benefits().stream()
+                        .filter(benefit -> !benefit.isZeroDiscount())
+                        .map(BenefitResponse::from)
+                        .toList(),
                 benefits.haveGiveaway()
         );
     }

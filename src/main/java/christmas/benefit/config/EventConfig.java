@@ -13,6 +13,4 @@ public final class EventConfig {
 
     private EventConfig() {
     }
-
-
 }

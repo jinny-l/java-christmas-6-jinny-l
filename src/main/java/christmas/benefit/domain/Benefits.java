@@ -9,9 +9,10 @@ public record Benefits(
 ) {
 
     public static Benefits from(Plan plan) {
-        return new Benefits(Arrays.stream(Event.values())
-                .map(event -> Benefit.from(event, plan))
-                .toList()
+        return new Benefits(
+                Arrays.stream(Event.values())
+                        .map(event -> Benefit.from(event, plan))
+                        .toList()
         );
     }
 
