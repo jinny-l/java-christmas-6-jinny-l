@@ -21,13 +21,13 @@ public record Order(
     }
 
     public boolean isMain() {
-        return menu.getType() == Type.MAIN;
+        return menu.getType() == MenuType.MAIN;
     }
 
     public boolean isDessert() {
-        return menu.getType() == Type.DESSERT;
+        return menu.getType() == MenuType.DESSERT;
     }
     public boolean isDrink() {
-        return menu.getType() == Type.DRINK;
+        return menu.getType() == MenuType.DRINK;
     }
 }

@@ -1,6 +1,6 @@
 package christmas.order.domain;
 
-public enum Type {
+public enum MenuType {
 
     APPETIZER, MAIN, DESSERT, DRINK;
 }
