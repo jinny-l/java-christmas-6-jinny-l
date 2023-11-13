@@ -32,13 +32,13 @@ public class CollectionsMapper {
 
     private static void validateNotEmptyList(List<String> input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException();
         }
     }
 
     private static boolean validateNotBlank(String input) {
         if (input.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException();
         }
         return true;
     }

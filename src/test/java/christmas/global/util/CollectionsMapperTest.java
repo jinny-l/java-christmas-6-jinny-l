@@ -32,7 +32,7 @@ class CollectionsMapperTest {
     void throw_exception_when_splitStringToList_has_blank_input(String input) {
         // when & then
         assertThatThrownBy(() -> CollectionsMapper.splitStringToList(",", input))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalStateException.class);
     }
 
     // ",,,"
@@ -60,6 +60,6 @@ class CollectionsMapperTest {
 
         // when & then
         assertThatThrownBy(() -> CollectionsMapper.splitListToMap("-", input))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalStateException.class);
     }
 }

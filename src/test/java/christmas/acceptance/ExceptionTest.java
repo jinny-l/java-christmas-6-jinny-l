@@ -36,7 +36,7 @@ public class ExceptionTest extends NsTest {
     }
 
     @Test
-    void 메뉴_형식이_맞지_않을_경우1_에러_메시지_출력() {
+    void 메뉴_와_주문_개수를_알맞은_구분자로_구분하지_않은_경우1_에러_메시지_출력() {
         assertSimpleTest(() -> {
             runException("1", "타파스:1,제로콜라:1");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -44,15 +44,7 @@ public class ExceptionTest extends NsTest {
     }
 
     @Test
-    void 메뉴_형식이_맞지_않을_경우2_에러_메시지_출력() {
-        assertSimpleTest(() -> {
-            runException("1", "타파스:1-제로콜라:1");
-            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        });
-    }
-
-    @Test
-    void 메뉴_형식이_맞지_않을_경우3_에러_메시지_출력() {
+    void 메뉴_와_주문_개수를_알맞은_구분자로_구분하지_않은_경우2_에러_메시지_출력() {
         assertSimpleTest(() -> {
             runException("1", "타파스,1,제로콜라,1");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -60,9 +52,25 @@ public class ExceptionTest extends NsTest {
     }
 
     @Test
-    void 메뉴_형식이_맞지_않을_경우4_에러_메시지_출력() {
+    void 메뉴_형식에_지정된_구분자를_사용하지_않았을_경우에러_메시지_출력() {
+        assertSimpleTest(() -> {
+            runException("1", "타파스:1-제로콜라:1");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 주문_개수를_입력하지_않았을_경우_에러_메시지_출력() {
         assertSimpleTest(() -> {
             runException("1", "타파스-");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 메뉴_사이에_공백이_있을_경우_에러_메시지_출력() {
+        assertSimpleTest(() -> {
+            runException("1", "타파스-1, ,제로콜라-1");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }

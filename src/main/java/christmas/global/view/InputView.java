@@ -40,11 +40,15 @@ public class InputView {
     }
 
     private static List<String> splitToList(String delimiter, String input) {
-        List<String> orders = stripElement(
-                CollectionsMapper.splitStringToList(delimiter, input)
-        );
-        validateDelimiter(delimiter, input, orders);
-        return orders;
+        try {
+            List<String> orders = stripElement(
+                    CollectionsMapper.splitStringToList(delimiter, input)
+            );
+            validateDelimiter(delimiter, input, orders);
+            return orders;
+        } catch (IllegalStateException e) {
+            throw  new ChristmasPromotionException(InputError.INVALID_ORDERS_FORMAT);
+        }
     }
 
     private static List<String> stripElement(List<String> input) {
