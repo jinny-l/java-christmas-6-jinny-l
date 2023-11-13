@@ -5,8 +5,6 @@ import christmas.date.domain.EventDate;
 import christmas.date.dto.VisitDayRequest;
 import christmas.date.service.EventDateService;
 import christmas.global.config.AppConfig;
-import christmas.global.view.InputView;
-import christmas.global.view.OutputView;
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
 import christmas.order.service.OrderService;
@@ -16,6 +14,8 @@ import christmas.plan.domain.Plan;
 import christmas.promotion.domain.Badge;
 import christmas.promotion.domain.Promotion;
 import christmas.promotion.dto.PromotionResponse;
+import christmas.view.InputView;
+import christmas.view.OutputView;
 
 public class ChristmasPromotionController {
 

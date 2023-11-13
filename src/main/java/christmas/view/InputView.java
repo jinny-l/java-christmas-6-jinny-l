@@ -1,8 +1,8 @@
-package christmas.global.view;
+package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.global.exception.ChristmasPromotionException;
-import christmas.global.view.exception.InputError;
+import christmas.view.exception.InputError;
 import java.util.List;
 import java.util.Map;
 

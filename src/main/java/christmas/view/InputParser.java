@@ -1,9 +1,9 @@
-package christmas.global.view;
+package christmas.view;
 
 import christmas.global.exception.ChristmasPromotionException;
 import christmas.global.util.CollectionsMapper;
-import christmas.global.view.exception.InputError;
 import christmas.order.exception.OrderError;
+import christmas.view.exception.InputError;
 import java.util.List;
 import java.util.Map;
 

@@ -3,7 +3,7 @@ package christmas.global.util.io;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.global.view.InputView;
+import christmas.view.InputView;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import org.junit.jupiter.api.AfterEach;

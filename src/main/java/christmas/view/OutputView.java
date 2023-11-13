@@ -1,4 +1,4 @@
-package christmas.global.view;
+package christmas.view;
 
 import christmas.benefit.dto.BenefitsResponse;
 import christmas.order.dto.OrdersResponse;

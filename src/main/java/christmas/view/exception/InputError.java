@@ -1,4 +1,4 @@
-package christmas.global.view.exception;
+package christmas.view.exception;
 
 import christmas.global.exception.Error;
 
