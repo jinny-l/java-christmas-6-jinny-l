@@ -1,29 +1,26 @@
 package christmas.fixture;
 
-import christmas.date.domain.DayType;
 import christmas.date.domain.EventDate;
-import java.time.LocalDate;
+import christmas.date.service.EventDateService;
+import christmas.global.config.AppConfig;
 
 public enum EventDateFixture {
 
-    WEEKDAY_NO_STAR(LocalDate.of(23, 12, 4), 1300, false, DayType.WEEKDAY),
-    WEEKDAY_HAS_STAR(LocalDate.of(23, 12, 3), 1200, true, DayType.WEEKDAY),
-    WEEKEND_NO_STAR(LocalDate.of(23, 12, 1), 1000, false, DayType.WEEKEND),
-    AFTER_CHRISTMAS_NO_STAR(LocalDate.of(23, 12, 26), 0, false, DayType.WEEKDAY);
+    디데이O_별X_평일(4),
+    디데이O_별O_평일(3),
+    디데이O_별X_주말(1),
+    디데이X_별X_평일(26),
+    디데이X_별O_평일(31),
+    디데이X_별X_주말(30);
 
-    private final LocalDate date;
-    private final Integer discountAmount;
-    private final Boolean hasStar;
-    private final DayType dayType;
+    private final int dayOfMonth;
 
-    EventDateFixture(LocalDate date, Integer discountAmount, Boolean hasStar, DayType dayType) {
-        this.date = date;
-        this.discountAmount = discountAmount;
-        this.hasStar = hasStar;
-        this.dayType = dayType;
+    EventDateFixture(int dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
     }
 
     public EventDate create() {
-        return new EventDate(date, discountAmount, hasStar, dayType);
+        EventDateService eventDateService = AppConfig.getInstance().eventDateService();
+        return eventDateService.findEventDay(dayOfMonth);
     }
 }

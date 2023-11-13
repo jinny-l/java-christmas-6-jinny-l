@@ -16,7 +16,7 @@ class BenefitsTest {
     @Test
     void calculateDiscountValue() {
         // given
-        Plan plan = PlanFixture.WEEKDAY_NO_STAR_WITH_DDAY_AND_NO_GIVEAWAY.create();
+        Plan plan = PlanFixture.디데이O_별X_평일_메인_주문_12만원_이하.create();
         Benefits benefits = Benefits.from(plan);
 
         int expected = plan.eventDate().discountAmount();
@@ -33,7 +33,7 @@ class BenefitsTest {
     @Test
     void calculateGiveawayDiscountValue() {
         // given
-        Plan plan = PlanFixture.WEEKDAY_NO_STAR_WITH_DDAY_AND_GIVEAWAY.create();
+        Plan plan = PlanFixture.디데이O_별X_평일_메인_주문_12만원_이상.create();
         Benefits benefits = Benefits.from(plan);
         int expected = Event.GIVEAWAY.calculateDiscountValue(plan);
 

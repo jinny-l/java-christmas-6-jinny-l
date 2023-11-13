@@ -6,13 +6,13 @@ import christmas.plan.domain.Plan;
 
 public enum PlanFixture {
 
-    WEEKDAY_NO_STAR_WITH_DDAY_AND_GIVEAWAY(
-            EventDateFixture.WEEKDAY_NO_STAR.create(),
-            OrdersFixture.ONLY_MAIN_SATISFIED_GIVEAWAY_EVENT.create()
+    디데이O_별X_평일_메인_주문_12만원_이상(
+            EventDateFixture.디데이O_별X_평일.create(),
+            OrdersFixture.메인_주문_12만원_이상.create()
     ),
-    WEEKDAY_NO_STAR_WITH_DDAY_AND_NO_GIVEAWAY(
-            EventDateFixture.WEEKDAY_NO_STAR.create(),
-            OrdersFixture.ONLY_MAIN_NOT_SATISFIED_GIVEAWAY_EVENT.create()
+    디데이O_별X_평일_메인_주문_12만원_이하(
+            EventDateFixture.디데이O_별X_평일.create(),
+            OrdersFixture.메인_주문_12만원_이하.create()
     );
 
     private final EventDate eventDate;

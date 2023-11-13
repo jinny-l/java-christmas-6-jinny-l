@@ -22,7 +22,7 @@ class EventTest {
     @Test
     void calculateDDayEventDiscountAmount_isDDayEventDate() {
         // given
-        EventDate eventDate = EventDateFixture.WEEKDAY_NO_STAR.create();
+        EventDate eventDate = EventDateFixture.디데이O_별X_평일.create();
         Plan plan = new Plan(
                 eventDate,
                 new Orders(List.of(
@@ -41,7 +41,7 @@ class EventTest {
     @Test
     void calculateDDayEventDiscountAmount_isNotDDayEventDate() {
         // given
-        EventDate eventDate = EventDateFixture.AFTER_CHRISTMAS_NO_STAR.create();
+        EventDate eventDate = EventDateFixture.디데이X_별X_평일.create();
         Plan plan = new Plan(
                 eventDate,
                 new Orders(List.of(
@@ -60,7 +60,7 @@ class EventTest {
     @Test
     void calculateWeekdayEventDiscountAmount() {
         // given
-        EventDate weekdayEventDate = EventDateFixture.WEEKDAY_NO_STAR.create();
+        EventDate weekdayEventDate = EventDateFixture.디데이O_별X_평일.create();
         Plan weekdayPlan = new Plan(
                 weekdayEventDate,
                 new Orders(List.of(
@@ -68,7 +68,7 @@ class EventTest {
                         new Order(Menu.BBQ_RIBS, 1)))
         );
 
-        EventDate weekendEventDate = EventDateFixture.WEEKEND_NO_STAR.create();
+        EventDate weekendEventDate = EventDateFixture.디데이O_별X_주말.create();
         Plan weekendPlan = new Plan(
                 weekendEventDate,
                 new Orders(List.of(
@@ -91,14 +91,14 @@ class EventTest {
     @Test
     void calculateWeekendEventDiscountAmount() {
         // given
-        EventDate weekdayEventDate = EventDateFixture.WEEKDAY_NO_STAR.create();
+        EventDate weekdayEventDate = EventDateFixture.디데이O_별X_평일.create();
         Plan weekdayPlan = new Plan(
                 weekdayEventDate,
                 new Orders(Collections.singletonList(
                         new Order(Menu.BBQ_RIBS, 1)))
         );
 
-        EventDate weekendEventDate = EventDateFixture.WEEKEND_NO_STAR.create();
+        EventDate weekendEventDate = EventDateFixture.디데이O_별X_주말.create();
         Plan weekendPlan = new Plan(
                 weekendEventDate,
                 new Orders(Collections.singletonList(
@@ -120,14 +120,14 @@ class EventTest {
     @Test
     void calculateStarDayEventDiscountAmount() {
         // given
-        EventDate starDate = EventDateFixture.WEEKDAY_HAS_STAR.create();
+        EventDate starDate = EventDateFixture.디데이O_별O_평일.create();
         Plan starDayPlan = new Plan(
                 starDate,
                 new Orders(Collections.singletonList(
                         new Order(Menu.BBQ_RIBS, 1)))
         );
 
-        EventDate noStarDate = EventDateFixture.WEEKEND_NO_STAR.create();
+        EventDate noStarDate = EventDateFixture.디데이O_별X_주말.create();
         Plan noStarDayPlan = new Plan(
                 noStarDate,
                 new Orders(Collections.singletonList(
@@ -149,7 +149,7 @@ class EventTest {
     @Test
     void test() {
         // given
-        EventDate eventDate = EventDateFixture.WEEKDAY_HAS_STAR.create();
+        EventDate eventDate = EventDateFixture.디데이O_별O_평일.create();
         Plan giveawayPlan = new Plan(
                 eventDate,
                 new Orders(Collections.singletonList(
