@@ -1,5 +1,6 @@
 package christmas.global.util;
 
+import christmas.global.util.exception.UtilError;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,13 +33,13 @@ public class CollectionsMapper {
 
     private static void validateNotEmptyList(List<String> input) {
         if (input.isEmpty()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(UtilError.PARSING.getMessage());
         }
     }
 
     private static boolean validateNotBlank(String input) {
         if (input.isBlank()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(UtilError.PARSING.getMessage());
         }
         return true;
     }
