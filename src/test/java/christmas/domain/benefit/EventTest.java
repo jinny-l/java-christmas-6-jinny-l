@@ -31,7 +31,7 @@ class EventTest {
         );
 
         // when
-        int actual = Event.D_DAY.calculateDiscountAmount(plan);
+        int actual = Event.D_DAY.calculateDiscountValue(plan);
 
         // then
         assertThat(actual).isEqualTo(eventDate.discountAmount());
@@ -50,7 +50,7 @@ class EventTest {
         );
 
         // when
-        int actual = Event.D_DAY.calculateDiscountAmount(plan);
+        int actual = Event.D_DAY.calculateDiscountValue(plan);
 
         // then
         assertThat(actual).isZero();
@@ -77,8 +77,8 @@ class EventTest {
         );
 
         // when
-        int weekdayPlanDiscountAmount = Event.WEEKDAY.calculateDiscountAmount(weekdayPlan);
-        int weekendPlanDiscountAmount = Event.WEEKDAY.calculateDiscountAmount(weekendPlan);
+        int weekdayPlanDiscountAmount = Event.WEEKDAY.calculateDiscountValue(weekdayPlan);
+        int weekendPlanDiscountAmount = Event.WEEKDAY.calculateDiscountValue(weekendPlan);
 
         // then
         assertAll(
@@ -106,8 +106,8 @@ class EventTest {
         );
 
         // when
-        int weekdayPlanDiscountAmount = Event.WEEKEND.calculateDiscountAmount(weekdayPlan);
-        int weekendPlanDiscountAmount = Event.WEEKEND.calculateDiscountAmount(weekendPlan);
+        int weekdayPlanDiscountAmount = Event.WEEKEND.calculateDiscountValue(weekdayPlan);
+        int weekendPlanDiscountAmount = Event.WEEKEND.calculateDiscountValue(weekendPlan);
 
         // then
         assertAll(
@@ -135,8 +135,8 @@ class EventTest {
         );
 
         // when
-        int starDayPlanDiscountAmount = Event.STAR_DAY.calculateDiscountAmount(starDayPlan);
-        int noStarDayPlanDiscountAmount = Event.STAR_DAY.calculateDiscountAmount(noStarDayPlan);
+        int starDayPlanDiscountAmount = Event.STAR_DAY.calculateDiscountValue(starDayPlan);
+        int noStarDayPlanDiscountAmount = Event.STAR_DAY.calculateDiscountValue(noStarDayPlan);
 
         // then
         assertAll(
@@ -163,8 +163,8 @@ class EventTest {
         );
 
         // when
-        int giveawayPlanDiscountAmount = Event.GIVEAWAY.calculateDiscountAmount(giveawayPlan);
-        int noGiveawayPlanDiscountAmount = Event.GIVEAWAY.calculateDiscountAmount(noGiveawayPlan);
+        int giveawayPlanDiscountAmount = Event.GIVEAWAY.calculateDiscountValue(giveawayPlan);
+        int noGiveawayPlanDiscountAmount = Event.GIVEAWAY.calculateDiscountValue(noGiveawayPlan);
 
         // then
         assertAll(

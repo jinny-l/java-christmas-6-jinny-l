@@ -1,5 +1,6 @@
 package christmas.benefit.domain;
 
+import christmas.benefit.config.EventConfig;
 import christmas.plan.domain.Plan;
 import java.util.Arrays;
 import java.util.List;
@@ -8,47 +9,38 @@ import java.util.function.Function;
 public enum Event {
 
     D_DAY("크리스마스 디데이 할인",
-            planner -> planner.eventDate().discountAmount()
+            plan -> true, // 크리스마스 디데이 할인 조건은 EventDate 가 처리하고 있어서 체크할 필요 없음
+            plan -> plan.eventDate().discountAmount()
     ),
     WEEKDAY("평일 할인",
-            planner -> {
-                if (planner.eventDate().isWeekday()) {
-                    return planner.orders().countAmountByDessertMenu() * 2023;
-                }
-                return 0;
-            }
+            plan -> plan.eventDate().isWeekday(),
+            plan -> plan.orders().countAmountByDessertMenu() * EventConfig.WEEKDAY_DISCOUNT_VALUE
     ),
     WEEKEND("주말 할인",
-            planner -> {
-                if (planner.eventDate().isWeekend()) {
-                    return planner.orders().countAmountByMainMenu() * 2023;
-                }
-                return 0;
-            }
+            plan -> plan.eventDate().isWeekend(),
+            plan -> plan.orders().countAmountByMainMenu() * EventConfig.WEEKEND_DISCOUNT_VALUE
     ),
     STAR_DAY("특별 할인",
-            planner -> {
-                if (planner.eventDate().hasStar()) {
-                    return 1000;
-                }
-                return 0;
-            }
+            plan -> plan.eventDate().hasStar(),
+            plan -> EventConfig.STAR_DAY_DISCOUNT_VALUE
     ),
     GIVEAWAY("증정 이벤트",
-            planner -> {
-                if (planner.orders().getTotalValue() > 120000) {
-                    return 25000;
-                }
-                return 0;
-            }
+            plan -> plan.orders().getTotalValue() > EventConfig.MIN_ORDER_VALUE_FOR_GIVEAWAY,
+            plan -> EventConfig.GIVEAWAY_DISCOUNT_VALUE
     );
 
     private final String name;
-    private final Function<Plan, Integer> discountAmountFormula;
+    private final Function<Plan, Boolean> conditionFormula;
+    private final Function<Plan, Integer> discountValueFormula;
 
-    Event(String name, Function<Plan, Integer> discountAmountFormula) {
+    Event(
+            String name,
+            Function<Plan, Boolean> conditionFormula,
+            Function<Plan, Integer> discountValueFormula
+    ) {
         this.name = name;
-        this.discountAmountFormula = discountAmountFormula;
+        this.conditionFormula = conditionFormula;
+        this.discountValueFormula = discountValueFormula;
     }
 
     public String getName() {
@@ -59,15 +51,18 @@ public enum Event {
         return Arrays.stream(Event.values())
                 .map(event -> new Benefit(
                         event,
-                        event.calculateDiscountAmount(plan))
+                        event.calculateDiscountValue(plan))
                 )
                 .toList();
     }
 
-    public int calculateDiscountAmount(Plan plan) {
-        if (plan.orders().getTotalValue() < 10000) {
+    public int calculateDiscountValue(Plan plan) {
+        if (plan.orders().getTotalValue() < EventConfig.MIN_ORDER_VALUE_FOR_EVENT) {
             return 0;
         }
-        return this.discountAmountFormula.apply(plan);
+        if (!conditionFormula.apply(plan)) {
+            return 0;
+        }
+        return this.discountValueFormula.apply(plan);
     }
 }

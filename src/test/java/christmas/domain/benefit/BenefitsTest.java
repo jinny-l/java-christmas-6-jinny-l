@@ -35,7 +35,7 @@ class BenefitsTest {
         // given
         Plan plan = PlanFixture.WEEKDAY_NO_STAR_WITH_DDAY_AND_GIVEAWAY.create();
         Benefits benefits = Benefits.from(plan);
-        int expected = Event.GIVEAWAY.calculateDiscountAmount(plan);
+        int expected = Event.GIVEAWAY.calculateDiscountValue(plan);
 
         // when
         int actual = benefits.calculateGiveawayDiscountValue();
