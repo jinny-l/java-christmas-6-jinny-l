@@ -5,7 +5,6 @@ import christmas.order.dto.OrdersResponse;
 import christmas.payment.dto.PaymentResponse;
 import christmas.promotion.dto.BadgeResponse;
 import christmas.promotion.dto.PromotionResponse;
-import java.util.stream.Collectors;
 
 public class OutputView {
 
@@ -40,15 +39,8 @@ public class OutputView {
     private static void printOrders(OrdersResponse ordersResponse) {
         System.out.printf(
                 "<주문 메뉴>%n%s%n%n",
-                formatOrdersMenu(ordersResponse)
+                OutputFormatter.formatOrdersMenu(ordersResponse)
         );
-    }
-
-    private static String formatOrdersMenu(OrdersResponse ordersResponse) {
-        return ordersResponse.menus().stream()
-                .map(orderResponse ->
-                        String.format("%s %d개", orderResponse.name(), orderResponse.amount()))
-                .collect(Collectors.joining(System.lineSeparator()));
     }
 
     private static void printTotalValue(PaymentResponse paymentResponse) {
@@ -70,32 +62,15 @@ public class OutputView {
     private static void printBenefits(BenefitsResponse benefitsResponse) {
         System.out.printf(
                 "<혜택 내역>%n%s%n%n",
-                formatBenefits(benefitsResponse)
+                OutputFormatter.formatBenefits(benefitsResponse)
         );
-    }
-
-    private static String formatBenefits(BenefitsResponse benefitsResponse) {
-        if (benefitsResponse.benefits().isEmpty()) {
-            return "없음";
-        }
-        return benefitsResponse.benefits().stream()
-                .map(benefitResponse ->
-                        String.format("%s: -%,d원", benefitResponse.eventName(), benefitResponse.discountAmount()))
-                .collect(Collectors.joining(System.lineSeparator()));
     }
 
     private static void printDiscountValue(PaymentResponse paymentResponse) {
         System.out.printf(
                 "<총혜택 금액>%n%s%n%n",
-                formatDiscountValue(paymentResponse)
+                OutputFormatter.formatDiscountValue(paymentResponse)
         );
-    }
-
-    private static String formatDiscountValue(PaymentResponse paymentResponse) {
-        if (paymentResponse.discountValue() == 0) {
-            return "0원";
-        }
-        return String.format("-%,d원", paymentResponse.discountValue());
     }
 
     private static void printFinalValue(PaymentResponse paymentResponse) {
