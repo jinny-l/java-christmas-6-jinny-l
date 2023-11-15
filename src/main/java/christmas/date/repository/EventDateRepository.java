@@ -19,7 +19,7 @@ public class EventDateRepository {
     }
 
     static {
-        List<String> csvData = CSVReader.read("src/main/resources/event-days.csv");
+        List<String> csvData = CSVReader.read("src/main/resources/event-dates.csv");
         EVENT_DATES.addAll(EventDate.parseEventDaysFromCSV(csvData));
     }
 
