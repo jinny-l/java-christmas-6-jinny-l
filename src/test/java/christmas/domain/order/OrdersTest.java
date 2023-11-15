@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import christmas.fixture.OrdersAmountFixture;
 import christmas.fixture.OrdersFixture;
 import christmas.order.domain.Menu;
 import christmas.order.domain.Order;
@@ -54,18 +55,22 @@ class OrdersTest {
                 .hasMessage(OrderError.DUPLICATE_MENU.getMessage());
     }
 
-    @DisplayName("주문이 모두 음료 메뉴인지 정확히 판단한다.")
+    @DisplayName("주문이 모두 음료 메뉴이면 예외가 발생한다.")
     @Test
-    void isAllDrink() {
-        // given
-        Orders drinks = OrdersFixture.음료_주문.create();
-        Orders foodAndDrinks = OrdersFixture.음료_및_메인_주문.create();
-
+    void newOrders_moreThan20_ExceptionThrown() {
         // when & then
-        assertAll(
-                () -> assertThat(drinks.isAllDrink()).isTrue(),
-                () -> assertThat(foodAndDrinks.isAllDrink()).isFalse()
-        );
+        assertThatThrownBy(OrdersFixture.음료_주문::create)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(OrderError.ALL_DRINK_ORDER.getMessage());
+    }
+
+    @DisplayName("주문 개수가 21개 이상이면 예외가 발생한다.")
+    @Test
+    void newOrders_allDrink_ExceptionThrown() {
+        // when & then
+        assertThatThrownBy(() -> OrdersAmountFixture.디저트_초코케이크_주문.create(21))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(OrderError.EXCEEDED_MAX_ORDER_AMOUNT.getMessage());
     }
 
     @DisplayName("총 주문 개수를 정확히 계산한다.")

@@ -6,10 +6,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public record Orders(List<Order> menus) {
+public record Orders(
+        List<Order> menus
+) {
+
+    private static final int ORDER_AMOUNT_MAX_VALUE = 20;
 
     public Orders {
+        validateOrderAmount(menus);
+        validateOrderFood(menus);
         validateDuplicateMenu(menus);
+    }
+
+    private void validateOrderAmount(List<Order> orders) {
+        if (orders.stream()
+                .mapToInt(Order::amount)
+                .sum() > ORDER_AMOUNT_MAX_VALUE) {
+            throw new ChristmasPromotionException(OrderError.EXCEEDED_MAX_ORDER_AMOUNT);
+        }
+    }
+
+    private void validateOrderFood(List<Order> orders) {
+        if (orders.stream().allMatch(Order::isDrink)) {
+            throw new ChristmasPromotionException(OrderError.ALL_DRINK_ORDER);
+        }
     }
 
     private void validateDuplicateMenu(List<Order> menus) {
@@ -25,16 +45,6 @@ public record Orders(List<Order> menus) {
         return menus.stream()
                 .mapToInt(menu -> menu.menu().getPrice() * menu.amount())
                 .sum();
-    }
-
-    public boolean isAllDrink() {
-        return menus.size() == countByDrink();
-    }
-
-    private int countByDrink() {
-        return (int) menus.stream()
-                .filter(Order::isDrink)
-                .count();
     }
 
     public int calculateTotalAmount() {

@@ -25,9 +25,6 @@ public enum OrdersFixture {
     메인_주문_12만원_이하(
             List.of(new Order(Menu.BBQ_RIBS, 1))
     ),
-    디저트_주문_12만원_이상(
-            List.of(new Order(Menu.ICE_CREAM, 24))
-    ),
     디저트_주문_12만원_이하(
             List.of(new Order(Menu.ICE_CREAM, 1))
     );

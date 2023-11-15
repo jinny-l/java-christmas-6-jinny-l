@@ -7,7 +7,6 @@ import christmas.date.service.EventDateService;
 import christmas.global.config.AppConfig;
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
-import christmas.order.service.OrderService;
 import christmas.payment.domain.Payment;
 import christmas.payment.service.PaymentService;
 import christmas.plan.domain.Plan;
@@ -20,12 +19,10 @@ import christmas.view.OutputView;
 public class ChristmasPromotionController {
 
     private final EventDateService eventDateService;
-    private final OrderService orderService;
     private final PaymentService paymentService;
 
     public ChristmasPromotionController(AppConfig appConfig) {
         this.eventDateService = appConfig.eventDateService();
-        this.orderService = appConfig.orderService();
         this.paymentService =  appConfig.paymentService();
     }
 
@@ -58,7 +55,7 @@ public class ChristmasPromotionController {
     private Orders readOrders() {
         try {
             OrdersRequest ordersRequest = OrdersRequest.from(InputView.readOrders());
-            return orderService.createOrders(ordersRequest);
+            return ordersRequest.toEntity();
         } catch (IllegalArgumentException e) {
             OutputView.printError(e);
             return readOrders();

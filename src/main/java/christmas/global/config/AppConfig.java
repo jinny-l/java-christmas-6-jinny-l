@@ -2,7 +2,6 @@ package christmas.global.config;
 
 import christmas.date.repository.EventDateRepository;
 import christmas.date.service.EventDateService;
-import christmas.order.service.OrderService;
 import christmas.payment.service.PaymentService;
 
 public final class AppConfig {
@@ -22,10 +21,6 @@ public final class AppConfig {
 
     public EventDateService eventDateService() {
         return EventDateService.getInstance();
-    }
-
-    public OrderService orderService() {
-        return OrderService.getInstance();
     }
 
     public PaymentService paymentService() {
