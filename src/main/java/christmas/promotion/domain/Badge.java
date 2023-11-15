@@ -29,7 +29,7 @@ public enum Badge {
         return name;
     }
 
-    public int getDiscountValue() {
+    private int getDiscountValue() {
         return discountValue;
     }
 }
