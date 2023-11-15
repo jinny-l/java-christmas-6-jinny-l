@@ -1,8 +1,9 @@
-package christmas.global.util;
+package christmas.global;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import christmas.global.util.CollectionsMapper;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +36,6 @@ class CollectionsMapperTest {
                 .isInstanceOf(IllegalStateException.class);
     }
 
-    // ",,,"
     @DisplayName("구분자를 기준으로 List의 요소들을 잘라 Map으로 만들 수 있다.")
     @Test
     void listToMap() {

@@ -1,9 +1,9 @@
-package christmas.global.util.io;
+package christmas.view;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.view.InputView;
+import christmas.view.exception.InputError;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import org.junit.jupiter.api.AfterEach;
@@ -12,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("[단위 테스트] Input")
-class InputUtilTest {
+class InputTest {
 
     @AfterEach
     void closeConsole() {
@@ -28,7 +28,8 @@ class InputUtilTest {
 
         // when & then
         assertThatThrownBy(InputView::readVisitDay)
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(InputError.BLANK_INPUT.getMessage());
     }
 
     private InputStream createInputStream(String input) {
