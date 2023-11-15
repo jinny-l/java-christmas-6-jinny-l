@@ -6,7 +6,13 @@ import christmas.payment.domain.Payment;
 
 public class PaymentService {
 
-    public PaymentService() {
+    public static final PaymentService PAYMENT_SERVICE = new PaymentService();
+
+    private PaymentService() {
+    }
+
+    public static PaymentService getInstance() {
+        return PAYMENT_SERVICE;
     }
 
     public Payment createPayment(Orders orders, Benefits benefits) {

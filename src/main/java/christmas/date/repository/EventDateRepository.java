@@ -8,7 +8,15 @@ import java.util.Optional;
 
 public class EventDateRepository {
 
+    private static final EventDateRepository EVENT_DATE_REPOSITORY = new EventDateRepository();
     private static final List<EventDate> EVENT_DATES = new ArrayList<>();
+
+    private EventDateRepository() {
+    }
+
+    public static EventDateRepository getInstance() {
+        return EVENT_DATE_REPOSITORY;
+    }
 
     static {
         List<String> csvData = CSVReader.read("src/main/resources/event-days.csv");

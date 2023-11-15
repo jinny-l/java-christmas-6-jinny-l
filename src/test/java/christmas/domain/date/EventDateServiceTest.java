@@ -5,9 +5,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import christmas.date.domain.EventDate;
-import christmas.date.repository.EventDateRepository;
 import christmas.date.service.EventDateService;
-import org.junit.jupiter.api.BeforeEach;
+import christmas.global.config.AppConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,12 +14,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 @DisplayName("[단위 테스트][Service] EventDate")
 class EventDateServiceTest {
 
-    private EventDateService eventDateService;
-
-    @BeforeEach
-    void setUp() {
-        eventDateService = new EventDateService(new EventDateRepository());
-    }
+    private final EventDateService eventDateService = AppConfig.getInstance().eventDateService();
 
     @DisplayName("별이 없는 날짜로 조회 시 정상적으로 조회되며 hasStar 값이 거짓이다.")
     @ParameterizedTest

@@ -5,11 +5,17 @@ import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
 import christmas.order.exception.OrderError;
 
+// TODO: 도메인 내부로 로직을 이동시킬지 고민중
 public class OrderService {
 
+    private static final OrderService ORDER_SERVICE = new OrderService();
     private static final int ORDER_AMOUNT_MAX_VALUE = 20;
 
-    public OrderService() {
+    private OrderService() {
+    }
+
+    public static OrderService getInstance() {
+        return ORDER_SERVICE;
     }
 
     public Orders createOrders(OrdersRequest ordersRequest) {

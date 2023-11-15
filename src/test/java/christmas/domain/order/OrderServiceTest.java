@@ -3,25 +3,20 @@ package christmas.domain.order;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.global.config.AppConfig;
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
 import christmas.order.exception.OrderError;
 import christmas.order.service.OrderService;
 import java.util.Collections;
 import java.util.Map;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("[단위 테스트][Service] OrderService")
 class OrderServiceTest {
 
-    private OrderService orderService;
-
-    @BeforeEach
-    void setUp() {
-        orderService = new OrderService();
-    }
+    private final OrderService orderService = AppConfig.getInstance().orderService();
 
     @DisplayName("정상적인 상황에서 주문이 가능하다.")
     @Test

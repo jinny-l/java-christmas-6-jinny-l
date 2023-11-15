@@ -7,7 +7,7 @@ import christmas.payment.service.PaymentService;
 
 public final class AppConfig {
 
-    private static AppConfig appConfig = new AppConfig();
+    private static final AppConfig appConfig = new AppConfig();
 
     private AppConfig() {
     }
@@ -17,18 +17,18 @@ public final class AppConfig {
     }
 
     public EventDateRepository eventDateRepository() {
-        return new EventDateRepository();
+        return EventDateRepository.getInstance();
     }
 
     public EventDateService eventDateService() {
-        return new EventDateService(eventDateRepository());
+        return EventDateService.getInstance();
     }
 
     public OrderService orderService() {
-        return new OrderService();
+        return OrderService.getInstance();
     }
 
     public PaymentService paymentService() {
-        return new PaymentService();
+        return PaymentService.getInstance();
     }
 }
