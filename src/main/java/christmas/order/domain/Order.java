@@ -27,6 +27,7 @@ public record Order(
     public boolean isDessert() {
         return menu.getType() == MenuType.DESSERT;
     }
+
     public boolean isDrink() {
         return menu.getType() == MenuType.DRINK;
     }
