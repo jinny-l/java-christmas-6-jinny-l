@@ -1,6 +1,6 @@
-package christmas.benefit.domain;
+package christmas.deprecated.benefit.domain;
 
-import christmas.benefit.config.EventConfig;
+import christmas.deprecated.benefit.config.EventConfig;
 import christmas.plan.domain.Plan;
 import java.util.function.Function;
 

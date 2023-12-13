@@ -1,4 +1,4 @@
-package christmas.benefit.config;
+package christmas.deprecated.benefit.config;
 
 import christmas.order.domain.Menu;
 
