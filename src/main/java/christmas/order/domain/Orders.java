@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Set;
 
 public record Orders(
-        List<Order> menus
+        List<Order> orders
 ) {
 
     private static final int ORDER_AMOUNT_MAX_VALUE = 20;
 
     public Orders {
-        validateOrderAmount(menus);
-        validateOrderFood(menus);
-        validateDuplicateMenu(menus);
+        validateOrderAmount(orders);
+        validateOrderFood(orders);
+        validateDuplicateMenu(orders);
     }
 
     private void validateOrderAmount(List<Order> orders) {
@@ -42,26 +42,26 @@ public record Orders(
     }
 
     public int calculateTotalValue() {
-        return menus.stream()
-                .mapToInt(menu -> menu.menu().getPrice() * menu.amount())
+        return orders.stream()
+                .mapToInt(Order::calculateTotalValue)
                 .sum();
     }
 
     public int calculateTotalAmount() {
-        return menus.stream()
+        return orders.stream()
                 .mapToInt(Order::amount)
                 .sum();
     }
 
     public int countAmountByDessertMenu() {
-        return menus.stream()
+        return orders.stream()
                 .filter(Order::isDessert)
                 .mapToInt(Order::amount)
                 .sum();
     }
 
     public int countAmountByMainMenu() {
-        return menus.stream()
+        return orders.stream()
                 .filter(Order::isMain)
                 .mapToInt(Order::amount)
                 .sum();

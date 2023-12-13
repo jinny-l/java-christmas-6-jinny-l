@@ -5,12 +5,12 @@ import christmas.order.domain.Orders;
 import java.util.List;
 
 public record OrdersResponse(
-        List<OrderResponse> menus
+        List<OrderResponse> orders
 ) {
 
     public static OrdersResponse from(Orders orders) {
         return new OrdersResponse(
-                orders.menus().stream()
+                orders.orders().stream()
                         .map(OrderResponse::from)
                         .toList()
         );

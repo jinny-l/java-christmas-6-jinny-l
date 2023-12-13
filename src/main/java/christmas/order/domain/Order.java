@@ -31,4 +31,8 @@ public record Order(
     public boolean isDrink() {
         return menu.getType() == MenuType.DRINK;
     }
+
+    public int calculateTotalValue() {
+        return menu.getPrice() * amount;
+    }
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public enum Menu {
 
+    // 1월, 12월 메뉴를 구분해야 하면 Month 필드 추가
     MUSHROOM_SOUP("양송이수프", 6000, MenuType.APPETIZER),
     TAPAS("타파스", 5500, MenuType.APPETIZER),
     CAESAR_SALAD("시저샐러드", 8000, MenuType.APPETIZER),

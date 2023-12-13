@@ -11,7 +11,7 @@ public class OutputFormatter {
     }
 
     public static String formatOrdersMenu(OrdersResponse ordersResponse) {
-        return ordersResponse.menus().stream()
+        return ordersResponse.orders().stream()
                 .map(orderResponse ->
                         String.format("%s %d개", orderResponse.name(), orderResponse.amount()))
                 .collect(Collectors.joining(System.lineSeparator()));
