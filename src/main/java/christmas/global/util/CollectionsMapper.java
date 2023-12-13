@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// TODO 리팩토링 필요
 public class CollectionsMapper {
 
     private static final int KEY_INDEX = 0;

@@ -50,6 +50,7 @@ public class OutputView {
         );
     }
 
+    // 요기 리팩토링
     private static void printGiveaway(BenefitsResponse benefitsResponse) {
         String format = "<증정 메뉴>%n%s%n%n";
         if (benefitsResponse.haveGiveaway()) {
