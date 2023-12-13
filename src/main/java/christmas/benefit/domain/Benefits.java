@@ -1,22 +1,22 @@
 package christmas.benefit.domain;
 
+import christmas.event.domain.Event;
 import christmas.plan.domain.Plan;
-import java.util.Arrays;
 import java.util.List;
 
 public record Benefits(
         List<Benefit> benefits
 ) {
 
-    public static Benefits from(Plan plan) {
+    public static Benefits from(Plan plan, List<Event> events) {
         return new Benefits(
-                Arrays.stream(Event.values())
+                events.stream()
                         .map(event -> Benefit.from(event, plan))
                         .toList()
         );
     }
 
-    public int calculateDiscountValue() {
+    public int calculateTotalDiscountValue() {
         return benefits.stream()
                 .mapToInt(Benefit::discountValue)
                 .sum();
@@ -26,7 +26,7 @@ public record Benefits(
         return benefits.stream()
                 .anyMatch(benefit ->
                         benefit.isGiveawayEvent()
-                                && benefit.discountValue() != 0
+                                && benefit.hasDiscount()
                 );
     }
 

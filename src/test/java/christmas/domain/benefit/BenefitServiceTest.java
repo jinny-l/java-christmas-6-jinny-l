@@ -3,21 +3,29 @@ package christmas.domain.benefit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import christmas.benefit.domain.Event;
+import christmas.benefit.domain.Benefit;
+import christmas.benefit.domain.Benefits;
+import christmas.benefit.service.BenefitService;
 import christmas.date.domain.EventDate;
+import christmas.event.domain.ChristmasEvent;
+import christmas.event.domain.DecemberGiveawayEvent;
+import christmas.event.domain.StarDayEvent;
+import christmas.event.domain.WeekdayEvent;
+import christmas.event.domain.WeekendEvent;
 import christmas.fixture.EventDateFixture;
 import christmas.fixture.OrdersAmountFixture;
 import christmas.fixture.OrdersFixture;
+import christmas.global.config.AppConfig;
 import christmas.order.domain.Orders;
 import christmas.plan.domain.Plan;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("[단위 테스트][Domain] Event")
-class EventTest {
+@DisplayName("[단위 테스트][Service] BenefitService")
+class BenefitServiceTest {
+
+    private final BenefitService benefitService = AppConfig.getInstance().benefitService();
 
     @DisplayName("최소 주문 금액을 만족하지 못했을 경우 할인 금액을 정확히 계산한다.")
     @Test
@@ -29,9 +37,11 @@ class EventTest {
         );
 
         // when
-        List<Integer> actual = Arrays.stream(Event.values())
-                .map(event -> event.calculateDiscountValue(plan))
-                .collect(Collectors.toList());
+        Benefits benefits = benefitService.calculateBenefit(plan);
+
+        List<Integer> actual = benefits.benefits().stream()
+                .map(Benefit::discountValue)
+                .toList();
 
         // then
         assertThat(actual).contains(0, 0, 0, 0, 0);
@@ -46,9 +56,10 @@ class EventTest {
                 eventDate,
                 OrdersFixture.메인_주문_12만원_이하.create()
         );
+        ChristmasEvent event = new ChristmasEvent();
 
         // when
-        int actual = Event.D_DAY.calculateDiscountValue(plan);
+        int actual = event.discount(plan, 10000);
 
         // then
         assertThat(actual).isEqualTo(1300);
@@ -62,9 +73,10 @@ class EventTest {
                 EventDateFixture.디데이X_별X_평일.create(),
                 OrdersFixture.메인_주문_12만원_이하.create()
         );
+        christmas.event.domain.Event event = new ChristmasEvent();
 
         // when
-        int actual = Event.D_DAY.calculateDiscountValue(plan);
+        int actual = event.discount(plan, 10000);
 
         // then
         assertThat(actual).isZero();
@@ -81,9 +93,12 @@ class EventTest {
         Plan weekdayPlan = new Plan(weekdayEventDate, orders);
         Plan weekendPlan = new Plan(weekendEventDate, orders);
 
+        WeekdayEvent weekdayEvent = new WeekdayEvent("평일 할인");
+        WeekendEvent weekendEvent = new WeekendEvent("주말 할인");
+
         // when
-        int weekdayPlanDiscountValue = Event.WEEKDAY.calculateDiscountValue(weekdayPlan);
-        int weekendPlanDiscountValue = Event.WEEKDAY.calculateDiscountValue(weekendPlan);
+        int weekdayPlanDiscountValue = weekdayEvent.discount(weekdayPlan, 10000);
+        int weekendPlanDiscountValue = weekendEvent.discount(weekendPlan, 10000);
 
         // then
         assertAll(
@@ -103,9 +118,12 @@ class EventTest {
         Plan weekdayPlan = new Plan(weekdayEventDate, orders);
         Plan weekendPlan = new Plan(weekendEventDate, orders);
 
+        WeekdayEvent weekdayEvent = new WeekdayEvent("평일 할인");
+        WeekendEvent weekendEvent = new WeekendEvent("주말 할인");
+
         // when
-        int weekdayPlanDiscountValue = Event.WEEKEND.calculateDiscountValue(weekdayPlan);
-        int weekendPlanDiscountValue = Event.WEEKEND.calculateDiscountValue(weekendPlan);
+        int weekdayPlanDiscountValue = weekdayEvent.discount(weekdayPlan, 10000);
+        int weekendPlanDiscountValue = weekendEvent.discount(weekendPlan, 10000);
 
         // then
         assertAll(
@@ -125,9 +143,11 @@ class EventTest {
         Plan starDayPlan = new Plan(starDate, orders);
         Plan noStarDayPlan = new Plan(noStarDate, orders);
 
+        StarDayEvent starDayEvent = new StarDayEvent("특별 할인");
+
         // when
-        int starDayPlanDiscountValue = Event.STAR_DAY.calculateDiscountValue(starDayPlan);
-        int noStarDayPlanDiscountValue = Event.STAR_DAY.calculateDiscountValue(noStarDayPlan);
+        int starDayPlanDiscountValue = starDayEvent.discount(starDayPlan, 10000);
+        int noStarDayPlanDiscountValue = starDayEvent.discount(noStarDayPlan, 100000);
 
         // then
         assertAll(
@@ -152,9 +172,11 @@ class EventTest {
                 OrdersFixture.메인_주문_12만원_이하.create()
         );
 
+        DecemberGiveawayEvent event = new DecemberGiveawayEvent();
+
         // when
-        int giveawayPlanDiscountValue = Event.GIVEAWAY.calculateDiscountValue(giveawayPlan);
-        int noGiveawayPlanDiscountValue = Event.GIVEAWAY.calculateDiscountValue(noGiveawayPlan);
+        int giveawayPlanDiscountValue = event.discount(giveawayPlan, 10000);
+        int noGiveawayPlanDiscountValue = event.discount(noGiveawayPlan, 10000);
 
         // then
         assertAll(

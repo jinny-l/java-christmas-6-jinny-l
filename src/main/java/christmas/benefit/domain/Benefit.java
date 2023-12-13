@@ -1,5 +1,7 @@
 package christmas.benefit.domain;
 
+import christmas.event.domain.Event;
+import christmas.event.domain.GiveawayEvent;
 import christmas.plan.domain.Plan;
 
 public record Benefit(
@@ -7,18 +9,20 @@ public record Benefit(
         int discountValue
 ) {
 
+    private static final int MIN_ORDER_VALUE_FOR_BENEFIT = 10000;
+
     public static Benefit from(Event event, Plan plan) {
         return new Benefit(
                 event,
-                event.calculateDiscountValue(plan)
+                event.discount(plan, MIN_ORDER_VALUE_FOR_BENEFIT)
         );
     }
 
     public boolean isGiveawayEvent() {
-        return event == Event.GIVEAWAY;
+        return event instanceof GiveawayEvent;
     }
 
-    public boolean isZeroDiscount() {
-        return discountValue == 0;
+    public boolean hasDiscount() {
+        return discountValue != 0;
     }
 }
