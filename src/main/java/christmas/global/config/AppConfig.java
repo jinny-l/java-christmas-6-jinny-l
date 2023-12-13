@@ -1,7 +1,6 @@
 package christmas.global.config;
 
 import christmas.benefit.service.BenefitService;
-import christmas.date.repository.EventDateRepository;
 import christmas.date.service.EventDateService;
 import christmas.payment.service.PaymentService;
 
@@ -18,10 +17,6 @@ public final class AppConfig {
 
     public BenefitService benefitService() {
         return BenefitService.getInstance();
-    }
-
-    public EventDateRepository eventDateRepository() {
-        return EventDateRepository.getInstance();
     }
 
     public EventDateService eventDateService() {

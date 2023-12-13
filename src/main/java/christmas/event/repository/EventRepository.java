@@ -12,6 +12,9 @@ import java.util.List;
 
 public class EventRepository {
 
+    private EventRepository() {
+    }
+
     // 11월, 12월 이벤트 어떻게 나눠서 저장할지 확인
     private static final List<Event> EVENTS = new ArrayList<>();
 
