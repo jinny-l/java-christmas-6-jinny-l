@@ -1,6 +1,7 @@
 package christmas;
 
 import christmas.benefit.domain.Benefits;
+import christmas.benefit.service.BenefitService;
 import christmas.date.domain.EventDate;
 import christmas.date.dto.VisitDayRequest;
 import christmas.date.service.EventDateService;
@@ -8,7 +9,6 @@ import christmas.global.config.AppConfig;
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
 import christmas.payment.domain.Payment;
-import christmas.payment.service.PaymentService;
 import christmas.plan.domain.Plan;
 import christmas.promotion.domain.Badge;
 import christmas.promotion.domain.Promotion;
@@ -19,11 +19,11 @@ import christmas.view.OutputView;
 public class ChristmasPromotionController {
 
     private final EventDateService eventDateService;
-    private final PaymentService paymentService;
+    private final BenefitService benefitService;
 
     public ChristmasPromotionController(AppConfig appConfig) {
         this.eventDateService = appConfig.eventDateService();
-        this.paymentService =  appConfig.paymentService();
+        this.benefitService = appConfig.benefitService();
     }
 
     public void run() {
@@ -63,8 +63,8 @@ public class ChristmasPromotionController {
     }
 
     private Promotion createPromotion(Plan plan) {
-        Benefits benefits = Benefits.from(plan);
-        Payment payment = paymentService.createPayment(plan.orders(), benefits);
+        Benefits benefits = benefitService.calculateBenefit(plan);
+        Payment payment = Payment.from(plan.orders(), benefits);
         Badge badge = Badge.from(payment.discountValue());
 
         return new Promotion(plan, benefits, badge, payment);
