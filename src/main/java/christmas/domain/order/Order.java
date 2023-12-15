@@ -15,8 +15,16 @@ public record Order(
     public static Order from(List<String> input) {
         return new Order(
                 Menu.from(input.get(0).strip()), // TODO Index out of bounds / Number format 에러 처리 필요
-                Integer.parseInt(input.get(1).strip())  //
+                parseInt(input.get(1).strip())  //
         );
+    }
+
+    private static int parseInt(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
     }
 
     public boolean isMain() { // TODO 밑에 메서드로 리팩토링

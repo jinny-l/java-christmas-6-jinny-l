@@ -20,6 +20,14 @@ public class MainController {
 
         Benefits benefits = Benefits.from(plan, EventRepository.findAll());
 
+        OutputView.printInfoPrefix(eventDate);
+        OutputView.printOrders(orders);
+        OutputView.printOrdersTotalValue(orders);
+        OutputView.printGiveaways(benefits.getGiveaways(plan));
+        OutputView.printBenefits(benefits);
+        OutputView.printDiscountValue(benefits);
+        OutputView.printFinalValue(orders, benefits);
+
     }
 
     private EventDate readEventDate() {

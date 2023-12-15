@@ -28,9 +28,10 @@ public record Orders(
     }
 
     public int getMenuAmountBy(Category category) {
-        return (int) orders.stream()
+        return orders.stream()
                 .filter(order -> order.isSameCategory(category))
-                .count();
+                .mapToInt(Order::amount)
+                .sum();
     }
 
     private void validateAmount(List<Order> orders) {
