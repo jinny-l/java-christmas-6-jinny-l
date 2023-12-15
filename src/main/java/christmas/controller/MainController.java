@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.domain.date.EventDate;
 import christmas.domain.order.Orders;
+import christmas.domain.plan.Plan;
 import christmas.dto.EventDateRequest;
 import christmas.repository.EventDateRepository;
 import christmas.view.InputView;
@@ -13,6 +14,8 @@ public class MainController {
     public void run() {
         EventDate eventDate = readEventDate();
         Orders orders = readOrders();
+
+        Plan plan = new Plan(eventDate, orders);
     }
 
     private EventDate readEventDate() {

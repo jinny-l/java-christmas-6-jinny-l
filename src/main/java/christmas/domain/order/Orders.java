@@ -21,6 +21,12 @@ public record Orders(
         );
     }
 
+    public int getTotalValue() {
+        return orders.stream()
+                .mapToInt(order -> order.menu().getPrice() * order.amount())
+                .sum();
+    }
+
     private void validateAmount(List<Order> orders) {
         if (orders.stream()
                 .mapToInt(Order::amount)
