@@ -19,8 +19,12 @@ public record Order(
         );
     }
 
-    public boolean isMain() {
+    public boolean isMain() { // TODO 밑에 메서드로 리팩토링
         return menu.getCategory() == Category.MAIN_COURSE;
+    }
+
+    public boolean isSameCategory(Category category) {
+        return menu.getCategory() == category;
     }
 
     private void validateAmount(int amount) {
