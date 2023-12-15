@@ -1,8 +1,10 @@
 package christmas.view;
 
 import christmas.benefit.dto.BenefitsResponse;
+import christmas.order.domain.Menu;
 import christmas.order.dto.OrdersResponse;
 import christmas.payment.dto.PaymentResponse;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputFormatter {
@@ -24,6 +26,16 @@ public class OutputFormatter {
         return benefitsResponse.benefits().stream()
                 .map(benefitResponse ->
                         String.format("%s: -%,d원", benefitResponse.eventName(), benefitResponse.discountAmount()))
+                .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+    public static String formatGiveaways(Map<Menu, Integer> giveaways) {
+        if (giveaways.isEmpty()) {
+            return "없음";
+        }
+        return giveaways.entrySet().stream()
+                .map(entry ->
+                        String.format("%s %d개", entry.getKey().getName(), entry.getValue()))
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 

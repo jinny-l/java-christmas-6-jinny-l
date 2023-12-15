@@ -33,7 +33,10 @@ public class DecemberGiveawayEvent extends GiveawayEvent {
     }
 
     @Override
-    public Map<Menu, Integer> getGiveaway() {
-        return Collections.unmodifiableMap(GIVEAWAY);
+    public Map<Menu, Integer> getGiveaways(Plan plan) {
+        if (satisfyCondition(plan)) {
+            return Collections.unmodifiableMap(GIVEAWAY);
+        }
+        return Collections.emptyMap();
     }
 }

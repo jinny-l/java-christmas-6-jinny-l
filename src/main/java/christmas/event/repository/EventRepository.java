@@ -3,6 +3,7 @@ package christmas.event.repository;
 import christmas.event.domain.ChristmasEvent;
 import christmas.event.domain.DecemberGiveawayEvent;
 import christmas.event.domain.Event;
+import christmas.event.domain.GiveawayEvent;
 import christmas.event.domain.StarDayEvent;
 import christmas.event.domain.WeekdayEvent;
 import christmas.event.domain.WeekendEvent;
@@ -32,5 +33,12 @@ public class EventRepository {
 
     public static List<Event> findAll() {
         return Collections.unmodifiableList(EVENTS);
+    }
+
+    public static List<GiveawayEvent> findGiveawayEvent() {
+        return EVENTS.stream()
+                .filter(event -> event instanceof GiveawayEvent)
+                .map(GiveawayEvent.class::cast)
+                .toList();
     }
 }

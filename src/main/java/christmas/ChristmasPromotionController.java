@@ -6,6 +6,7 @@ import christmas.date.domain.EventDate;
 import christmas.date.dto.VisitDayRequest;
 import christmas.date.service.EventDateService;
 import christmas.global.config.AppConfig;
+import christmas.order.domain.Menu;
 import christmas.order.domain.Orders;
 import christmas.order.dto.OrdersRequest;
 import christmas.payment.domain.Payment;
@@ -15,6 +16,7 @@ import christmas.promotion.domain.Promotion;
 import christmas.promotion.dto.PromotionResponse;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.Map;
 
 public class ChristmasPromotionController {
 
@@ -32,7 +34,8 @@ public class ChristmasPromotionController {
         Plan plan = readAndCreatePlan();
 
         Promotion promotion = createPromotion(plan);
-        OutputView.printPromotion(PromotionResponse.from(promotion));
+        Map<Menu, Integer> giveaways = benefitService.getGiveaways(plan);
+        OutputView.printPromotion(PromotionResponse.from(promotion, giveaways));
     }
 
     private Plan readAndCreatePlan() {
