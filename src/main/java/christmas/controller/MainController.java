@@ -1,7 +1,7 @@
 package christmas.controller;
 
-import christmas.domain.EventDate;
-import christmas.domain.Orders;
+import christmas.domain.date.EventDate;
+import christmas.domain.order.Orders;
 import christmas.dto.EventDateRequest;
 import christmas.repository.EventDateRepository;
 import christmas.view.InputView;

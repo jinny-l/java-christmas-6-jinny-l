@@ -1,6 +1,6 @@
 package christmas.repository;
 
-import christmas.domain.EventDate;
+import christmas.domain.date.EventDate;
 import christmas.util.FileReader;
 import java.util.ArrayList;
 import java.util.List;
