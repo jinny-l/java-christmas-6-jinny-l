@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 public class WeekendDiscountEvent extends DiscountEvent {
 
-    public WeekendDiscountEvent(String name) {
+    public WeekendDiscountEvent() {
         super("주말 할인");
     }
 

@@ -1,10 +1,12 @@
 package christmas.controller;
 
+import christmas.domain.benfit.Benefits;
 import christmas.domain.date.EventDate;
 import christmas.domain.order.Orders;
 import christmas.domain.plan.Plan;
 import christmas.dto.EventDateRequest;
 import christmas.repository.EventDateRepository;
+import christmas.repository.EventRepository;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.List;
@@ -14,8 +16,10 @@ public class MainController {
     public void run() {
         EventDate eventDate = readEventDate();
         Orders orders = readOrders();
-
         Plan plan = new Plan(eventDate, orders);
+
+        Benefits benefits = Benefits.from(plan, EventRepository.findAll());
+
     }
 
     private EventDate readEventDate() {

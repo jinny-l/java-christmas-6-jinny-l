@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public class ChristmasDiscountEvent extends DiscountEvent {
 
-    public ChristmasDiscountEvent(String name) {
+    public ChristmasDiscountEvent() {
         super("크리스마스 디데이 할인");
     }
 

@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public class StarDayDiscountEvent extends DiscountEvent {
 
-    public StarDayDiscountEvent(String name) {
+    public StarDayDiscountEvent() {
         super("특별 할인");
     }
 
